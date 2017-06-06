@@ -7,10 +7,10 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch Node",
             "program": "${file}",
             "outFiles": [
-                "${workspaceRoot}/app/**/*.js"
+                "${workspaceRoot}/build/**/*.js"
             ]
         }
     ]

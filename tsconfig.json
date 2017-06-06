@@ -1,9 +1,14 @@
 {
+    // "compileOnSave": true,
     "compilerOptions": {
         "target": "es2015",
-        "module": "commonjs",
+        "module": "es2015",
         "sourceMap": true,
-        "outDir": "./app",
+        "outDir": "./build/",
         "strict": true
-    }
+    },
+    "exclude": [
+        "./node_modules/",
+        "./build/"
+    ]
 }
