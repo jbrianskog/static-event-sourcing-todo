@@ -1,52 +1,54 @@
-namespace StaticEventSourcedTodo {
+import { TodoIdType } from "./todo";
+import { UncommittedDomainEvent, AggregateIdType, DomainEventType } from "../event-store";
 
-    export interface Event {
-        readonly kind: string;
-    }
+export class TodoAdded implements UncommittedDomainEvent {
+    readonly type = DomainEventType.TodoAdded;
+    constructor(
+        readonly aggregateId: AggregateIdType,
+        readonly todoId: TodoIdType,
+        readonly todoName: string
+    ) { }
+}
 
-    export class TodoAdded implements Event {
-        readonly kind = "TodoAdded";
-        constructor(
-            readonly id: TodoIdType,
-            readonly title: string
-        ) { }
-    }
+export class TodoRemoved implements UncommittedDomainEvent {
+    readonly type = DomainEventType.TodoRemoved;
+    constructor(
+        readonly aggregateId: AggregateIdType,
+        readonly todoId: TodoIdType
+    ) { }
+}
 
-    export class TodoRemoved implements Event {
-        readonly kind = "TodoRemoved";
-        constructor(
-            readonly id: TodoIdType
-        ) { }
-    }
+export class TodoCompleted implements UncommittedDomainEvent {
+    readonly type = DomainEventType.TodoCompleted;
+    constructor(
+        readonly aggregateId: AggregateIdType,
+        readonly todoId: TodoIdType,
+        readonly todoCompletionTimestamp: number
+    ) { }
+}
 
-    export class TodoCompleted implements Event {
-        readonly kind = "TodoCompleted";
-        constructor(
-            readonly id: TodoIdType,
-            readonly CompletionDate: Date
-        ) { }
-    }
+export class TodoUncompleted implements UncommittedDomainEvent {
+    readonly type = DomainEventType.TodoUncompleted;
+    constructor(
+        readonly aggregateId: AggregateIdType,
+        readonly todoId: TodoIdType
+    ) { }
+}
 
-    export class TodoUncompleted implements Event {
-        readonly kind = "TodoUncompleted";
-        constructor(
-            readonly id: TodoIdType
-        ) { }
-    }
+export class TodoRenamed implements UncommittedDomainEvent {
+    readonly type = DomainEventType.TodoRenamed;
+    constructor(
+        readonly aggregateId: AggregateIdType,
+        readonly todoId: TodoIdType,
+        readonly todoName: string
+    ) { }
+}
 
-    export class TodoTitleChanged implements Event {
-        readonly kind = "TodoTitleChanged";
-        constructor(
-            readonly id: TodoIdType,
-            readonly title: string
-        ) { }
-    }
-
-    export class TodoPositionChanged implements Event {
-        readonly kind = "TodoPositionChanged";
-        constructor(
-            readonly id: TodoIdType,
-            readonly offset: number
-        ) { }
-    }
+export class TodoPositionChanged implements UncommittedDomainEvent {
+    readonly type = DomainEventType.TodoPositionChanged;
+    constructor(
+        readonly aggregateId: AggregateIdType,
+        readonly todoId: TodoIdType,
+        readonly todoOffset: number
+    ) { }
 }
