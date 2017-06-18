@@ -4,6 +4,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV;
 const ENV_DEVELOPMENT = NODE_ENV === 'development';
@@ -49,7 +50,8 @@ module.exports = {
         }),
         new CopyWebpackPlugin([
             { from: 'assets' }
-        ])
+        ]),
+        new FaviconsWebpackPlugin('./favicon.png')
     ]
 };
 
