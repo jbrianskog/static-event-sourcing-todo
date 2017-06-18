@@ -14,7 +14,8 @@ module.exports = {
         bundle: './app.ts'
     },
     output: {
-        path: path.resolve(__dirname, 'docs')
+        path: path.resolve(__dirname, 'build'),
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -34,6 +35,7 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js']
     },
+    devtool: 'inline-source-map',
     plugins: [
         new DefinePlugin({
           'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
@@ -52,11 +54,10 @@ module.exports = {
 };
 
 if (ENV_PRODUCTION) {
+    module.exports.output.path = path.resolve(__dirname, 'docs');
     module.exports.output.filename = '[name].[chunkhash].js';
     module.exports.plugins.push(new ExtractTextPlugin('[name].[contenthash].css'));
     module.exports.devtool = 'source-map';
 } else {
-    module.exports.output.filename = '[name].js';
     module.exports.plugins.push(new ExtractTextPlugin('[name].css'));
-    module.exports.devtool = 'inline-source-map';
 }

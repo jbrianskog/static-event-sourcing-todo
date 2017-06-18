@@ -6,7 +6,8 @@
         "**/node_modules/": true
     },
     "search.exclude": {
-        "**/docs/": true,
+        "docs/": true,
+        "build/": true,
         "assets/": true
     }
 }
