@@ -4,11 +4,11 @@
         "target": "es2015",
         "module": "commonjs",
         "sourceMap": true,
-        "outDir": "./build/",
+        "outDir": "./docs/",
         "strict": true
     },
     "exclude": [
         "./node_modules/",
-        "./build/"
+        "./docs/"
     ]
 }

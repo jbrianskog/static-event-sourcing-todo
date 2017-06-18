@@ -14,7 +14,7 @@ module.exports = {
         bundle: './app.ts'
     },
     output: {
-        path: path.resolve(__dirname, 'build')
+        path: path.resolve(__dirname, 'docs')
     },
     module: {
         rules: [

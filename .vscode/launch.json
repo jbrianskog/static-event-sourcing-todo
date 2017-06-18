@@ -10,7 +10,7 @@
             "name": "Launch Node",
             "program": "${file}",
             "outFiles": [
-                "${workspaceRoot}/build/**/*.js"
+                "${workspaceRoot}/docs/**/*.js"
             ]
         }
     ]
