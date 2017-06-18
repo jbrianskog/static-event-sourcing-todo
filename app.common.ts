@@ -4,8 +4,6 @@ import { TodoList } from "./domain/todo-list";
 import { todoListPanelController } from "./controllers/todo-list-panel-controller";
 import { completedTodoListPanelController } from "./controllers/completed-todo-list-panel-controller";
 import { eventListController } from "./controllers/event-list-controller";
-import { todoListEvents } from "./read";
-import { bodyController } from "./controllers/body-controller";
 
 export function refreshLists(todoListId: AggregateIdType): Promise<void> {
     return domainEventsByAggregate(todoListId)
