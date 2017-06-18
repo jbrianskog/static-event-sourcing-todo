@@ -15,7 +15,7 @@ export function todoListEvents(): Promise<DomainEvent[]> {
 
 function todoLists(events: DomainEvent[]): AggregateIdType[] {
     return events.reduce<AggregateIdType[]>((p, c) => {
-        if (c.type === DomainEventType.TodoAdded && p.indexOf(c.aggregateId) !== -1) {
+        if (c.type === DomainEventType.TodoAdded && p.indexOf(c.aggregateId) === -1) {
             p.push(c.aggregateId);
         }
         return p;
