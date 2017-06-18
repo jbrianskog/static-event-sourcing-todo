@@ -1,5 +1,5 @@
 {
-  "name": "static-event-sourced-todo",
+  "name": "event-sourcing-todo-static",
   "version": "1.0.0",
   "description": "Todo app. Static site with event-sourced application state with IndexedDB",
   "main": "./app.ts",
@@ -36,12 +36,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jbrianskog/StaticEventSourcedTodo.git"
+    "url": "git+https://github.com/jbrianskog/EventSourcingTodoStatic.git"
   },
   "author": "Jon Brian Skog",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jbrianskog/StaticEventSourcedTodo/issues"
+    "url": "https://github.com/jbrianskog/EventSourcingTodoStatic/issues"
   },
-  "homepage": "https://github.com/jbrianskog/StaticEventSourcedTodo#readme"
+  "homepage": "https://github.com/jbrianskog/EventSourcingTodoStatic#readme"
 }
