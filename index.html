@@ -16,18 +16,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8">
-                    <form role="form" id="addTodoForm">
-                        <label for="addTodoInput" class="sr-only">New To-do Name</label>
-                        <div class="input-group">
-                            <input id="addTodoInput" name="name" class="form-control" type="text" placeholder="What do you need to do?" autofocus required/>
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-success" aria-label="Add To-do">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
-                    <br />
+                    <div data-estd-controller="addTodoFormController"></div>
                     <div id="todolistDelegatedEventTarget">
                         <div data-estd-controller="todoListPanelController"></div>
                         <div data-estd-controller="completedTodoListPanelController"></div>
@@ -42,6 +31,20 @@
                 <p>&copy; 2017 - Jon Brian Skog</p>
             </footer>
         </div>
+    </template>
+    <template id="addTodoFormTemplate">
+        <form role="form" id="addTodoForm">
+            <label for="addTodoInput" class="sr-only">New To-do Name</label>
+            <div class="input-group">
+                <input id="addTodoInput" name="name" class="form-control" type="text" placeholder="What do you need to do?" autofocus required/>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-success" aria-label="Add To-do">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </div>
+        </form>
+        <br />
     </template>
     <template id="todoListPanelTemplate">
         <h3 class="sr-only">To-dos</h3>

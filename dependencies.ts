@@ -1,8 +1,9 @@
 import { Todo, CompletedTodo } from "./domain/todo";
-import { DomainEvent } from "./event-store";
+import { DomainEvent, AggregateIdType } from "./event-store";
 
 export interface Dependencies {
     bodyController: (di: Dependencies, events: DomainEvent[]) => DocumentFragment;
+    addTodoFormController: (di: Dependencies, todoListId: AggregateIdType) => DocumentFragment;
     todoListPanelController: (di: Dependencies, todos: Todo[]) => DocumentFragment;
     completedTodoListPanelController: (di: Dependencies, todos: CompletedTodo[]) => DocumentFragment;
     todoListController: (di: Dependencies, todos: (Todo | CompletedTodo)[]) => DocumentFragment;
@@ -16,4 +17,5 @@ export interface Dependencies {
     eventListController: (di: Dependencies, events: DomainEvent[]) => DocumentFragment;
     eventListGroupController: (di: Dependencies, events: DomainEvent[]) => DocumentFragment;
     eventTextController: (di: Dependencies, event: DomainEvent) => DocumentFragment;
+    refreshLists: (di: Dependencies, todoListId: AggregateIdType) => Promise<void>;
 }

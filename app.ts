@@ -2,7 +2,7 @@ import "./site.css";
 import { fillControllerElements } from "./utils";
 import { todoListEvents } from "./read";
 import { Dependencies } from "./dependencies";
-import { bodyController } from "./controllers/body-controller";
+import { bodyController, refreshLists } from "./controllers/body-controller";
 import { todoListPanelController } from "./controllers/todo-list-panel-controller";
 import { completedTodoListPanelController } from "./controllers/completed-todo-list-panel-controller";
 import { todoListController } from "./controllers/todo-list-controller";
@@ -16,6 +16,7 @@ import { todoRenamePanelController } from "./controllers/todo-rename-panel-contr
 import { eventListController } from "./controllers/event-list-controller";
 import { eventListGroupController } from "./controllers/event-list-group-controller";
 import { eventTextController } from "./controllers/event-text-controller";
+import { addTodoFormController } from "./controllers/add-todo-form-controller";
 
 if (!window.indexedDB) {
     window.alert("Your browser doesn't support IndexedDB (the browser feature this app uses to store your To-dos). Update your browser to its latest version.");
@@ -23,6 +24,7 @@ if (!window.indexedDB) {
 
 const di: Dependencies = {
     bodyController: bodyController,
+    addTodoFormController: addTodoFormController,
     todoListPanelController: todoListPanelController,
     completedTodoListPanelController: completedTodoListPanelController,
     todoListController: todoListController,
@@ -35,7 +37,8 @@ const di: Dependencies = {
     todoRenamePanelController: todoRenamePanelController,
     eventListController: eventListController,
     eventListGroupController: eventListGroupController,
-    eventTextController: eventTextController
+    eventTextController: eventTextController,
+    refreshLists: refreshLists
 }
 
 todoListEvents()
