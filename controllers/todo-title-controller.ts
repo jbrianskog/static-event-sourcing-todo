@@ -1,13 +1,13 @@
 import { Todo, CompletedTodo } from "../domain/todo";
-import { templateClone, setContentElement } from "../utils";
+import { templateClone, fillContentElements } from "../utils";
 
 export function todoTitleController(todo: Todo | CompletedTodo): DocumentFragment {
-    let titleFragment = templateClone("todoTitleTemplate");
-    setContentElement(titleFragment, "name", todo.name);
+    let titleFragment = new DocumentFragment();
+    titleFragment.textContent = todo.name;
     if (todo.isCompleted) {
         let completionDateFragment = templateClone("todoCompletionDateTemplate");
         let date = new Date((todo as CompletedTodo).completionTimestamp);
-        setContentElement(completionDateFragment, "completionDate", date.toLocaleDateString());
+        fillContentElements(completionDateFragment, "completionDate", date.toLocaleDateString());
         titleFragment.appendChild(completionDateFragment);
     }
     return titleFragment;

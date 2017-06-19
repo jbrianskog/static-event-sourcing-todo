@@ -20,7 +20,7 @@ function findControllerElements(parentNode: NodeSelector, controllerName: string
     return findAllElements(parentNode, selector) as NodeListOf<HTMLElement>;
 }
 
-export function setContentElement(parentNode: NodeSelector, propName: string, content: string): void {
+export function fillContentElements(parentNode: NodeSelector, propName: string, content: string): void {
     findContentElements(parentNode, propName).forEach(elem => elem.textContent = content);
 }
 
