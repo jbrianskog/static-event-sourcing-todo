@@ -8,18 +8,25 @@ export function templateClone(id: string): DocumentFragment {
     return fragment;
 }
 
-export function findControllerElement(parentNode: NodeSelector, controllerName: string): HTMLElement {
+export function fillControllerElements(parentNode: NodeSelector, controllerName: string, newChild: DocumentFragment): void {
+    findControllerElements(parentNode, controllerName).forEach(e => {
+        e.innerHTML = "";
+        e.appendChild(newChild)}
+    );
+}
+
+function findControllerElements(parentNode: NodeSelector, controllerName: string): NodeListOf<HTMLElement> {
     let selector = `[data-estd-controller='${controllerName}']`;
-    return findElement(parentNode, selector) as HTMLElement;
+    return findAllElements(parentNode, selector) as NodeListOf<HTMLElement>;
 }
 
 export function setContentElement(parentNode: NodeSelector, propName: string, content: string): void {
     findContentElements(parentNode, propName).forEach(elem => elem.textContent = content);
 }
 
-function findContentElements(parentNode: NodeSelector, propName: string): NodeListOf<HTMLElement> {
+function findContentElements(parentNode: NodeSelector, propName: string): NodeListOf<Element> {
     let selector = `[data-estd-content='${propName}']`;
-    return findAllElements(parentNode, selector) as NodeListOf<HTMLElement>;
+    return findAllElements(parentNode, selector);
 }
 
 export function setPropElements(parentNode: NodeSelector, propName: string, value: string): void {
@@ -27,12 +34,12 @@ export function setPropElements(parentNode: NodeSelector, propName: string, valu
     findPropElements(parentNode, propName).forEach(elem => elem.setAttribute(attributeName, value));
 }
 
-function findPropElements(parentNode: NodeSelector, propName: string): NodeListOf<HTMLElement> {
+function findPropElements(parentNode: NodeSelector, propName: string): NodeListOf<Element> {
     let selector = `[data-estd-prop='${propName}']`;
-    return findAllElements(parentNode, selector) as NodeListOf<HTMLElement>;
+    return findAllElements(parentNode, selector);
 }
 
-export function findElement(parentNode: NodeSelector, selector: string) {
+export function findElement(parentNode: NodeSelector, selector: string): Element {
     let element = parentNode.querySelector(selector);
     if (!element) {
         throw new Error(`'${parentNode}' missing required '${selector}' element`);
@@ -40,17 +47,12 @@ export function findElement(parentNode: NodeSelector, selector: string) {
     return element;
 }
 
-function findAllElements(parentNode: NodeSelector, selector: string) {
+function findAllElements(parentNode: NodeSelector, selector: string): NodeListOf<Element> {
     let elements = parentNode.querySelectorAll(selector);
     if (!elements.length) {
         throw new Error(`'${parentNode}' missing required '${selector}' element`);
     }
     return elements;
-}
-
-export function replaceChildren(parent: HTMLElement, newNode: Node): void {
-    parent.innerHTML = "";
-    parent.appendChild(newNode);
 }
 
 export function getRequiredAttribute(element: Element, attributeName: string): string {

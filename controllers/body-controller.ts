@@ -1,4 +1,4 @@
-import { templateClone, findControllerElement, findElement, getRequiredAttribute } from "../utils";
+import { templateClone, fillControllerElements, findElement, getRequiredAttribute } from "../utils";
 import { todoListPanelController } from "./todo-list-panel-controller";
 import { completedTodoListPanelController } from "./completed-todo-list-panel-controller";
 import { eventListController } from "./event-list-controller";
@@ -143,11 +143,8 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
         }
     });
 
-    findControllerElement(fragment, "todoListPanelController")
-        .appendChild(todoListPanelController(todoList.todos));
-    findControllerElement(fragment, "completedTodoListPanelController")
-        .appendChild(completedTodoListPanelController(todoList.completedTodos));
-    findControllerElement(fragment, "eventListController")
-        .appendChild(eventListController(events));
+    fillControllerElements(fragment, "todoListPanelController", todoListPanelController(todoList.todos));
+    fillControllerElements(fragment, "completedTodoListPanelController", completedTodoListPanelController(todoList.completedTodos));
+    fillControllerElements(fragment, "eventListController", eventListController(events));
     return fragment;
 }

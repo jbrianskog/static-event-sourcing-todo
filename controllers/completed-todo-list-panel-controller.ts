@@ -1,5 +1,5 @@
 import { CompletedTodo } from "../domain/todo";
-import { templateClone, findControllerElement } from "../utils";
+import { templateClone, fillControllerElements } from "../utils";
 import { todoListController } from "./todo-list-controller";
 
 export function completedTodoListPanelController(todos: CompletedTodo[]): DocumentFragment {
@@ -7,7 +7,6 @@ export function completedTodoListPanelController(todos: CompletedTodo[]): Docume
         return new DocumentFragment();
     }
     let fragment = templateClone("completedTodoListPanelTemplate");
-    findControllerElement(fragment, "todoListController")
-        .appendChild(todoListController(todos));
+    fillControllerElements(fragment, "todoListController", todoListController(todos));
     return fragment;
 }
