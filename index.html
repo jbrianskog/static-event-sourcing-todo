@@ -64,20 +64,20 @@
         <div class="list-group-item list-group-item-success todoRenamePanel" style="display: none" data-estd-controller="todoRenamePanelController"></div>
     </template>
     <template id="todoTitlePanelTemplate">
-        <div class="row">
-            <div class="col-sm-10 col-lg-11" data-estd-controller="todoTitleController"></div>
-            <div class="col-sm-2 col-lg-1">
-                <button type="button" class="btn btn-link pull-right todoActionsBtn" aria-label="Actions">
+        <div class="todo-list-todo-panel">
+            <div class="todo-list-todo-title" data-estd-controller="todoTitleController"></div>
+            <div class="todo-list-todo-btn-group">
+                <button type="button" class="btn btn-link todoActionsBtn" aria-label="Actions">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             </button>
             </div>
         </div>
     </template>
     <template id="todoActionsPanelTemplate">
-        <div class="row">
-            <div class="col-sm-7 col-md-8" data-estd-controller="todoTitleController"></div>
-            <div class="col-md-5 col-md-4">
-                <div class="btn-group todoActionsPanelBtnGroup pull-right" role="group" data-estd-controller="todoActionsPanelButtonsController"></div>
+        <div class="todo-list-todo-panel">
+            <div class="todo-list-todo-title" data-estd-controller="todoTitleController"></div>
+            <div class="todo-list-todo-btn-group">
+                <div class="btn-group todoActionsPanelBtnGroup" role="group" data-estd-controller="todoActionsPanelButtonsController"></div>
             </div>
         </div>
     </template>
