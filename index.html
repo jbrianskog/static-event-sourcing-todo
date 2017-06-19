@@ -125,7 +125,10 @@
     </button>
     </template>
     <template id="eventListTemplate">
-        <pre><small data-estd-content="eventListText"></small></pre>
+        <div class="list-group" data-estd-controller="eventListGroupController"></div>
+    </template>
+    <template id="eventListItemTemplate">
+        <a class="list-group-item event-list-item" data-estd-controller="eventTextController"></a>
     </template>
     <template id="emptyEventListTemplate">
         <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Add some to-dos to see events</p>
