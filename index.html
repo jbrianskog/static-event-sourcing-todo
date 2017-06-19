@@ -15,13 +15,7 @@
     <template id="bodyTemplate">
         <div class="container">
             <div class="row">
-                <div class="col-sm-8">
-                    <div data-estd-controller="addTodoFormController"></div>
-                    <div id="todolistDelegatedEventTarget">
-                        <div data-estd-controller="todoListPanelController"></div>
-                        <div data-estd-controller="completedTodoListPanelController"></div>
-                    </div>
-                </div>
+                <div class="col-sm-8" data-estd-controller="todoListPanelController"></div>
                 <div class="col-sm-4">
                     <h3>Domain Events</h3>
                     <div data-estd-controller="eventListController"></div>
@@ -30,6 +24,13 @@
             <footer>
                 <p>&copy; 2017 - Jon Brian Skog</p>
             </footer>
+        </div>
+    </template>
+    <template id="todoListPanelTemplate">
+        <div data-estd-controller="addTodoFormController"></div>
+        <div id="todolistDelegatedEventTarget">
+            <div data-estd-controller="incompleteTodoListController"></div>
+            <div data-estd-controller="completedTodoListController"></div>
         </div>
     </template>
     <template id="addTodoFormTemplate">
@@ -46,11 +47,11 @@
         </form>
         <br />
     </template>
-    <template id="todoListPanelTemplate">
+    <template id="incompleteTodoListTemplate">
         <h3 class="sr-only">To-dos</h3>
         <div data-estd-controller="todoListController"></div>
     </template>
-    <template id="completedTodoListPanelTemplate">
+    <template id="completedTodoListTemplate">
         <h3 class="sr-only">Completed To-dos</h3>
         <div data-estd-controller="todoListController"></div>
     </template>

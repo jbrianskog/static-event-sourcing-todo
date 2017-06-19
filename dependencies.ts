@@ -3,9 +3,10 @@ import { DomainEvent, AggregateIdType } from "./event-store";
 
 export interface Dependencies {
     bodyController: (di: Dependencies, events: DomainEvent[]) => DocumentFragment;
+    todoListPanelController: (di: Dependencies, events: DomainEvent[]) => DocumentFragment;
     addTodoFormController: (di: Dependencies, todoListId: AggregateIdType) => DocumentFragment;
-    todoListPanelController: (di: Dependencies, todos: Todo[]) => DocumentFragment;
-    completedTodoListPanelController: (di: Dependencies, todos: CompletedTodo[]) => DocumentFragment;
+    incompleteTodoListController: (di: Dependencies, todos: Todo[]) => DocumentFragment;
+    completedTodoListController: (di: Dependencies, todos: CompletedTodo[]) => DocumentFragment;
     todoListController: (di: Dependencies, todos: (Todo | CompletedTodo)[]) => DocumentFragment;
     todoListGroupController: (di: Dependencies, todos: (Todo | CompletedTodo)[]) => DocumentFragment;
     todoController: (di: Dependencies, todo: Todo | CompletedTodo) => DocumentFragment;
