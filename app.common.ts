@@ -1,20 +1,4 @@
-import { allDomainEvents, AggregateIdType, domainEventsByAggregate } from "./event-store";
-import { fillControllerElements } from "./utils";
-import { TodoList } from "./domain/todo-list";
-import { todoListPanelController } from "./controllers/todo-list-panel-controller";
-import { completedTodoListPanelController } from "./controllers/completed-todo-list-panel-controller";
-import { eventListController } from "./controllers/event-list-controller";
-
 export const todoIdDataAttrName = "data-estd-todo-id";
-export function refreshLists(todoListId: AggregateIdType): Promise<void> {
-    return domainEventsByAggregate(todoListId)
-        .then(events => {
-            let todoList = new TodoList(events);
-            fillControllerElements(document, "todoListPanelController", todoListPanelController(todoList.todos));
-            fillControllerElements(document, "completedTodoListPanelController", completedTodoListPanelController(todoList.completedTodos));
-            fillControllerElements(document, "eventListController", eventListController(events));
-        });
-}
 
 export function invalidNameInputHandler(e: JQueryEventObject) {
     let input = e.currentTarget as HTMLInputElement;

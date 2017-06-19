@@ -1,14 +1,12 @@
 import { templateClone, fillControllerElements, findElement, getRequiredAttribute } from "../utils";
-import { todoListPanelController } from "./todo-list-panel-controller";
-import { completedTodoListPanelController } from "./completed-todo-list-panel-controller";
-import { eventListController } from "./event-list-controller";
 import { TodoList } from "../domain/todo-list";
-import { DomainEvent, allDomainEvents, postDomainEvents, domainEventsByAggregate } from "../event-store";
+import { DomainEvent, allDomainEvents, postDomainEvents, domainEventsByAggregate, AggregateIdType } from "../event-store";
 import { v4 as uuid } from "uuid";
-import { refreshLists, invalidNameInputHandler, todoIdDataAttrName } from "../app.common";
+import { invalidNameInputHandler, todoIdDataAttrName } from "../app.common";
 import { todoListEvents } from "../read";
+import { Dependencies } from "../dependencies";
 
-export function bodyController(events: DomainEvent[]): DocumentFragment {
+export function bodyController(di: Dependencies, events: DomainEvent[]): DocumentFragment {
     let fragment = templateClone("bodyTemplate");
     let todoList = new TodoList(events);
     let todoListId = todoList.id;
@@ -33,7 +31,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
             // This assignment is only necessary when the first Todo is added to a new TodoList.
             todoListId = todoList.id;
             return postDomainEvents(todoList.uncommittedEvents);
-        }).then(() => refreshLists(todoListId));
+        }).then(() => refreshLists(di, todoListId));
     });
     let $todoListDelegatedEventTarget = $(findElement(fragment, "#todolistDelegatedEventTarget"));
     $todoListDelegatedEventTarget.on("submit", ".renameTodoForm", function (e) {
@@ -45,7 +43,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
                 let todoId = getRequiredAttribute(e.currentTarget, todoIdDataAttrName);
                 todoList.rename(todoId, todoName);
                 return postDomainEvents(todoList.uncommittedEvents);
-            }).then(() => refreshLists(todoListId));
+            }).then(() => refreshLists(di, todoListId));
     });
     // Need to handle keypress here because the completeTodoBtn is an <a> without an href,
     // so tabbing to it and pressing enter doesn't trigger a click event like it would with a <button>.
@@ -78,7 +76,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
                     todoList.uncomplete(todoId);
                 }
                 return postDomainEvents(todoList.uncommittedEvents);
-            }).then(() => refreshLists(todoListId));
+            }).then(() => refreshLists(di, todoListId));
     }
     $todoListDelegatedEventTarget.on("click", ".moveTodoUpBtn", function (e) {
         domainEventsByAggregate(todoListId)
@@ -87,7 +85,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
                 let todoId = getRequiredAttribute(e.currentTarget, todoIdDataAttrName);
                 todoList.changePosition(todoId, -1);
                 return postDomainEvents(todoList.uncommittedEvents);
-            }).then(() => refreshLists(todoListId));
+            }).then(() => refreshLists(di, todoListId));
     });
     $todoListDelegatedEventTarget.on("click", ".moveTodoDownBtn", function (e) {
         domainEventsByAggregate(todoListId)
@@ -96,7 +94,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
                 let todoId = getRequiredAttribute(e.currentTarget, todoIdDataAttrName);
                 todoList.changePosition(todoId, 1);
                 return postDomainEvents(todoList.uncommittedEvents);
-            }).then(() => refreshLists(todoListId));
+            }).then(() => refreshLists(di, todoListId));
     });
     $todoListDelegatedEventTarget.on("click", ".deleteTodoBtn", function (e) {
         domainEventsByAggregate(todoListId)
@@ -105,7 +103,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
                 let todoId = getRequiredAttribute(e.currentTarget, todoIdDataAttrName);
                 todoList.remove(todoId);
                 return postDomainEvents(todoList.uncommittedEvents);
-            }).then(() => refreshLists(todoListId));
+            }).then(() => refreshLists(di, todoListId));
     });
     $todoListDelegatedEventTarget.on("click", ".todoActionsBtn", function (e) {
         var $defaultPanel = $(e.currentTarget).closest(".todoPanelDefault"),
@@ -143,8 +141,20 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
         }
     });
 
-    fillControllerElements(fragment, "todoListPanelController", todoListPanelController(todoList.todos));
-    fillControllerElements(fragment, "completedTodoListPanelController", completedTodoListPanelController(todoList.completedTodos));
-    fillControllerElements(fragment, "eventListController", eventListController(events));
+    fillControllers(di, fragment, todoList, events);
     return fragment;
+}
+
+function refreshLists(di: Dependencies, todoListId: AggregateIdType): Promise<void> {
+    return domainEventsByAggregate(todoListId)
+        .then(events => {
+            let todoList = new TodoList(events);
+            fillControllers(di, document, todoList, events);
+        });
+}
+
+function fillControllers(di: Dependencies, parent: NodeSelector, todoList: TodoList, events: DomainEvent[]): void {
+    fillControllerElements(parent, "todoListPanelController", di.todoListPanelController(di, todoList.todos));
+    fillControllerElements(parent, "completedTodoListPanelController", di.completedTodoListPanelController(di, todoList.completedTodos));
+    fillControllerElements(parent, "eventListController", di.eventListController(di, events));
 }

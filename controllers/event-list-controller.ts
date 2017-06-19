@@ -1,11 +1,11 @@
 import { templateClone, fillControllerElements } from "../utils";
 import { DomainEvent } from "../event-store";
-import { eventListGroupController } from "./event-list-group-controller";
+import { Dependencies } from "../dependencies";
 
-export function eventListController(events: DomainEvent[]): DocumentFragment {
+export function eventListController(di: Dependencies, events: DomainEvent[]): DocumentFragment {
     if (events.length) {
         let fragment = templateClone("eventListTemplate");
-        fillControllerElements(fragment, "eventListGroupController", eventListGroupController(events));
+        fillControllerElements(fragment, "eventListGroupController", di.eventListGroupController(di, events));
         return fragment;
     } else {
         let fragment = templateClone("emptyEventListTemplate");

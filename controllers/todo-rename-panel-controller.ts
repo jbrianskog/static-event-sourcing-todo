@@ -1,8 +1,9 @@
 import { Todo, CompletedTodo } from "../domain/todo";
 import { templateClone, findElement, setAttrElements } from "../utils";
 import { invalidNameInputHandler, todoIdDataAttrName } from "../app.common";
+import { Dependencies } from "../dependencies";
 
-export function todoRenamePanelController(todo: Todo | CompletedTodo): DocumentFragment {
+export function todoRenamePanelController(di: Dependencies, todo: Todo | CompletedTodo): DocumentFragment {
     let fragment = templateClone("todoRenamePanelTemplate");
     let input = findElement(fragment, "input[name='name']");
     let inputId = input.getAttribute("id");

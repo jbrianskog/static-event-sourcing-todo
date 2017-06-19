@@ -1,10 +1,10 @@
 import { Todo, CompletedTodo } from "../domain/todo";
-import { todoController } from "./todo-controller";
+import { Dependencies } from "../dependencies";
 
-export function todoListGroupController(todos: (Todo | CompletedTodo)[]): DocumentFragment {
+export function todoListGroupController(di: Dependencies, todos: (Todo | CompletedTodo)[]): DocumentFragment {
     let fragment = new DocumentFragment();
     for (const todo of todos) {
-        fragment.appendChild(todoController(todo))
+        fragment.appendChild(di.todoController(di, todo))
     }
     return fragment;
 }

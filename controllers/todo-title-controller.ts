@@ -1,7 +1,8 @@
 import { Todo, CompletedTodo } from "../domain/todo";
 import { templateClone, fillContentElements } from "../utils";
+import { Dependencies } from "../dependencies";
 
-export function todoTitleController(todo: Todo | CompletedTodo): DocumentFragment {
+export function todoTitleController(di: Dependencies, todo: Todo | CompletedTodo): DocumentFragment {
     let titleFragment = new DocumentFragment();
     titleFragment.textContent = todo.name;
     if (todo.isCompleted) {

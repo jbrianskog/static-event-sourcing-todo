@@ -1,9 +1,9 @@
 import { Todo, CompletedTodo } from "../domain/todo";
 import { templateClone, fillControllerElements } from "../utils";
-import { todoTitleController } from "./todo-title-controller";
+import { Dependencies } from "../dependencies";
 
-export function todoTitlePanelController(todo: Todo | CompletedTodo): DocumentFragment {
+export function todoTitlePanelController(di: Dependencies, todo: Todo | CompletedTodo): DocumentFragment {
     let fragment = templateClone("todoTitlePanelTemplate");
-    fillControllerElements(fragment, "todoTitleController", todoTitleController(todo));
+    fillControllerElements(fragment, "todoTitleController", di.todoTitleController(di, todo));
     return fragment;
 }

@@ -1,12 +1,12 @@
 import { CompletedTodo } from "../domain/todo";
 import { templateClone, fillControllerElements } from "../utils";
-import { todoListController } from "./todo-list-controller";
+import { Dependencies } from "../dependencies";
 
-export function completedTodoListPanelController(todos: CompletedTodo[]): DocumentFragment {
+export function completedTodoListPanelController(di: Dependencies, todos: CompletedTodo[]): DocumentFragment {
     if (!todos.length) {
         return new DocumentFragment();
     }
     let fragment = templateClone("completedTodoListPanelTemplate");
-    fillControllerElements(fragment, "todoListController", todoListController(todos));
+    fillControllerElements(fragment, "todoListController", di.todoListController(di, todos));
     return fragment;
 }
