@@ -1,5 +1,5 @@
 import { DomainEvent } from "../event-store";
-import { templateClone, findControllerElement } from "../utils";
+import { templateClone, fillControllerElements } from "../utils";
 import { eventTextController } from "./event-text-controller";
 
 export function eventListGroupController(events: DomainEvent[]): DocumentFragment {
@@ -7,8 +7,7 @@ export function eventListGroupController(events: DomainEvent[]): DocumentFragmen
         let fragment = new DocumentFragment();
         events.forEach(e => {
             let listItemFragment = templateClone("eventListItemTemplate");
-            findControllerElement(listItemFragment, "eventTextController")
-                .appendChild(eventTextController(e));
+            fillControllerElements(listItemFragment, "eventTextController", eventTextController(e));
             fragment.appendChild(listItemFragment);
         });
         return fragment;

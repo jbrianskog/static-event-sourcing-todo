@@ -1,5 +1,6 @@
 import { Todo, CompletedTodo } from "../domain/todo";
-import { templateClone, setPropElements } from "../utils";
+import { templateClone, setAttrElements } from "../utils";
+import { todoIdDataAttrName } from "../app.common";
 
 export function todoActionsPanelButtonsController(todo: Todo | CompletedTodo): DocumentFragment {
     let fragment = templateClone("todoDeleteBtnTemplate");
@@ -11,6 +12,6 @@ export function todoActionsPanelButtonsController(todo: Todo | CompletedTodo): D
         element.dataset.todoId = todo.id;
     }
     fragment.appendChild(templateClone("todoRenameBtnTemplate"));
-    setPropElements(fragment, "todo-id", todo.id);
+    setAttrElements(fragment, todoIdDataAttrName, todo.id);
     return fragment;
 }

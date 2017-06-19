@@ -1,7 +1,7 @@
 import "./site.css";
 import { allDomainEvents, domainEventsByAggregate } from "./event-store";
 import { bodyController } from "./controllers/body-controller";
-import { findControllerElement } from "./utils";
+import { fillControllerElements } from "./utils";
 import { todoListEvents } from "./read";
 
 if (!window.indexedDB) {
@@ -10,6 +10,5 @@ if (!window.indexedDB) {
 
 todoListEvents()
     .then(events => {
-        findControllerElement(document, "bodyController")
-            .appendChild(bodyController(events));
+        fillControllerElements(document, "bodyController", bodyController(events));
     });

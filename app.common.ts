@@ -1,17 +1,18 @@
 import { allDomainEvents, AggregateIdType, domainEventsByAggregate } from "./event-store";
-import { replaceChildren, findControllerElement } from "./utils";
+import { fillControllerElements } from "./utils";
 import { TodoList } from "./domain/todo-list";
 import { todoListPanelController } from "./controllers/todo-list-panel-controller";
 import { completedTodoListPanelController } from "./controllers/completed-todo-list-panel-controller";
 import { eventListController } from "./controllers/event-list-controller";
 
+export const todoIdDataAttrName = "data-estd-todo-id";
 export function refreshLists(todoListId: AggregateIdType): Promise<void> {
     return domainEventsByAggregate(todoListId)
         .then(events => {
             let todoList = new TodoList(events);
-            replaceChildren(findControllerElement(document, "todoListPanelController"), todoListPanelController(todoList.todos));
-            replaceChildren(findControllerElement(document, "completedTodoListPanelController"), completedTodoListPanelController(todoList.completedTodos));
-            replaceChildren(findControllerElement(document, "eventListController"), eventListController(events));
+            fillControllerElements(document, "todoListPanelController", todoListPanelController(todoList.todos));
+            fillControllerElements(document, "completedTodoListPanelController", completedTodoListPanelController(todoList.completedTodos));
+            fillControllerElements(document, "eventListController", eventListController(events));
         });
 }
 
