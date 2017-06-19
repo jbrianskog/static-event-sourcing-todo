@@ -9,9 +9,9 @@ export function templateClone(id: string): DocumentFragment {
 }
 
 export function fillControllerElements(parentNode: NodeSelector, controllerName: string, newChild: DocumentFragment): void {
-    findControllerElements(parentNode, controllerName).forEach(e => {
-        e.innerHTML = "";
-        e.appendChild(newChild)}
+    findControllerElements(parentNode, controllerName).forEach(elem => {
+        elem.innerHTML = "";
+        elem.appendChild(newChild)}
     );
 }
 
@@ -29,13 +29,12 @@ function findContentElements(parentNode: NodeSelector, propName: string): NodeLi
     return findAllElements(parentNode, selector);
 }
 
-export function setPropElements(parentNode: NodeSelector, propName: string, value: string): void {
-    let attributeName = "data-estd-" + propName;
-    findPropElements(parentNode, propName).forEach(elem => elem.setAttribute(attributeName, value));
+export function setAttrElements(parentNode: NodeSelector, attrName: string, value: string): void {
+    findAttrElements(parentNode, attrName).forEach(elem => elem.setAttribute(attrName, value));
 }
 
-function findPropElements(parentNode: NodeSelector, propName: string): NodeListOf<Element> {
-    let selector = `[data-estd-prop='${propName}']`;
+function findAttrElements(parentNode: NodeSelector, attrName: string): NodeListOf<Element> {
+    let selector = `[data-estd-attr='${attrName}']`;
     return findAllElements(parentNode, selector);
 }
 

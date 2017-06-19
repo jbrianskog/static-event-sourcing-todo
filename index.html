@@ -54,12 +54,12 @@
         <div class="list-group" data-estd-controller="todoListGroupController"></div>
     </template>
     <template id="todoTemplate">
-        <a class="list-group-item completeTodoBtn todoPanelDefault" data-estd-prop="todo-id" data-estd-controller="todoTitlePanelController" tabindex="0"></a>
+        <a class="list-group-item completeTodoBtn todoPanelDefault" data-estd-attr="data-estd-todo-id" data-estd-controller="todoTitlePanelController" tabindex="0"></a>
         <div class="list-group-item todoActionsPanel" style="display: none" data-estd-controller="todoActionsPanelController"></div>
         <div class="list-group-item todoRenamePanel" style="display: none" data-estd-controller="todoRenamePanelController"></div>
     </template>
     <template id="completedTodoTemplate">
-        <a class="list-group-item list-group-item-success uncompleteTodoBtn todoPanelDefault" data-estd-prop="todo-id" data-estd-controller="todoTitlePanelController" tabindex="0"></a>
+        <a class="list-group-item list-group-item-success uncompleteTodoBtn todoPanelDefault" data-estd-attr="data-estd-todo-id" data-estd-controller="todoTitlePanelController" tabindex="0"></a>
         <div class="list-group-item list-group-item-success todoActionsPanel" style="display: none" data-estd-controller="todoActionsPanelController"></div>
         <div class="list-group-item list-group-item-success todoRenamePanel" style="display: none" data-estd-controller="todoRenamePanelController"></div>
     </template>
@@ -84,7 +84,7 @@
     <template id="todoRenamePanelTemplate">
         <div class="row">
             <div class="col-sm-12">
-                <form role="form" class="renameTodoForm" data-estd-prop="todo-id">
+                <form role="form" class="renameTodoForm" data-estd-attr="data-estd-todo-id">
                     <label for="renameTodoFormInput" class="sr-only">New Name</label>
                     <div class="input-group">
                         <input id="renameTodoFormInput" name="name" class="form-control renameTodoBtnClickFocusTarget" placeholder="What do you need to do?" type="text" required>
@@ -102,17 +102,17 @@
         <br /><small>Completed on <span data-estd-content="completionDate"></span></small>
     </template>
     <template id="todoDeleteBtnTemplate">
-        <button type="button" class="btn btn-link deleteTodoBtn" aria-label="Delete" data-estd-prop="todo-id">
+        <button type="button" class="btn btn-link deleteTodoBtn" aria-label="Delete" data-estd-attr="data-estd-todo-id">
         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
     </button>
     </template>
     <template id="todoMoveUpBtnTemplate">
-        <button type="button" class="btn btn-link moveTodoUpBtn" aria-label="Move up" data-estd-prop="todo-id">
+        <button type="button" class="btn btn-link moveTodoUpBtn" aria-label="Move up" data-estd-attr="data-estd-todo-id">
         <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
     </button>
     </template>
     <template id="todoMoveDownBtnTemplate">
-        <button type="button" class="btn btn-link moveTodoDownBtn" aria-label="Move down" data-estd-prop="todo-id">
+        <button type="button" class="btn btn-link moveTodoDownBtn" aria-label="Move down" data-estd-attr="data-estd-todo-id">
         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
     </button>
     </template>

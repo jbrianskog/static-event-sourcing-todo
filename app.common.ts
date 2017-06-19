@@ -5,6 +5,7 @@ import { todoListPanelController } from "./controllers/todo-list-panel-controlle
 import { completedTodoListPanelController } from "./controllers/completed-todo-list-panel-controller";
 import { eventListController } from "./controllers/event-list-controller";
 
+export const todoIdDataAttrName = "data-estd-todo-id";
 export function refreshLists(todoListId: AggregateIdType): Promise<void> {
     return domainEventsByAggregate(todoListId)
         .then(events => {

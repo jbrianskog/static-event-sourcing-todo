@@ -5,7 +5,7 @@ import { eventListController } from "./event-list-controller";
 import { TodoList } from "../domain/todo-list";
 import { DomainEvent, allDomainEvents, postDomainEvents, domainEventsByAggregate } from "../event-store";
 import { v4 as uuid } from "uuid";
-import { refreshLists, invalidNameInputHandler } from "../app.common";
+import { refreshLists, invalidNameInputHandler, todoIdDataAttrName } from "../app.common";
 import { todoListEvents } from "../read";
 
 export function bodyController(events: DomainEvent[]): DocumentFragment {
@@ -42,7 +42,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
             .then(events => {
                 let todoList = new TodoList(events);
                 let todoName = $(e.currentTarget).find("input[name='name']").val();
-                let todoId = getRequiredAttribute(e.currentTarget, "data-estd-todo-id");
+                let todoId = getRequiredAttribute(e.currentTarget, todoIdDataAttrName);
                 todoList.rename(todoId, todoName);
                 return postDomainEvents(todoList.uncommittedEvents);
             }).then(() => refreshLists(todoListId));
@@ -71,7 +71,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
         domainEventsByAggregate(todoListId)
             .then(events => {
                 let todoList = new TodoList(events);
-                let todoId = getRequiredAttribute(e.currentTarget, "data-estd-todo-id");
+                let todoId = getRequiredAttribute(e.currentTarget, todoIdDataAttrName);
                 if (isComplete) {
                     todoList.complete(todoId, Date.now());
                 } else {
@@ -84,7 +84,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
         domainEventsByAggregate(todoListId)
             .then(events => {
                 let todoList = new TodoList(events);
-                let todoId = getRequiredAttribute(e.currentTarget, "data-estd-todo-id");
+                let todoId = getRequiredAttribute(e.currentTarget, todoIdDataAttrName);
                 todoList.changePosition(todoId, -1);
                 return postDomainEvents(todoList.uncommittedEvents);
             }).then(() => refreshLists(todoListId));
@@ -93,7 +93,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
         domainEventsByAggregate(todoListId)
             .then(events => {
                 let todoList = new TodoList(events);
-                let todoId = getRequiredAttribute(e.currentTarget, "data-estd-todo-id");
+                let todoId = getRequiredAttribute(e.currentTarget, todoIdDataAttrName);
                 todoList.changePosition(todoId, 1);
                 return postDomainEvents(todoList.uncommittedEvents);
             }).then(() => refreshLists(todoListId));
@@ -102,7 +102,7 @@ export function bodyController(events: DomainEvent[]): DocumentFragment {
         domainEventsByAggregate(todoListId)
             .then(events => {
                 let todoList = new TodoList(events);
-                let todoId = getRequiredAttribute(e.currentTarget, "data-estd-todo-id");
+                let todoId = getRequiredAttribute(e.currentTarget, todoIdDataAttrName);
                 todoList.remove(todoId);
                 return postDomainEvents(todoList.uncommittedEvents);
             }).then(() => refreshLists(todoListId));
