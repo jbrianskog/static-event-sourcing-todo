@@ -3,6 +3,7 @@ import { DomainEvent, domainEventsByAggregate, postDomainEvents, AggregateIdType
 import { templateClone, findElement, getRequiredAttribute, fillControllerElements } from "../utils";
 import { TodoList } from "../domain/todo-list";
 import { todoIdDataAttrName } from "../app.common";
+import { v4 as uuid } from "uuid";
 
 export function todoListPanelController(di: Dependencies, events: DomainEvent[]): DocumentFragment {
     let fragment = templateClone("todoListPanelTemplate");
@@ -85,7 +86,7 @@ export function todoListPanelController(di: Dependencies, events: DomainEvent[])
             $actionsPanel = $defaultPanel.next(),
             $bothPanels = $defaultPanel.add($actionsPanel),
             actionsBtnGroup = $actionsPanel.find(".todoActionsPanelBtnGroup")[0],
-            eventNamespace = "click.todoActionsPanelClose:" + e.timeStamp.toString().replace(".", "");
+            eventNamespace = "click.todoActionsPanelClose:" + uuid();
         $bothPanels.toggle();
 
         // This handler will close (i.e. toggle) the ActionsPanel when the user clicks anywhere in the document outside of the actionsBtnGroup.

@@ -2,6 +2,7 @@ import { Dependencies } from "./dependencies";
 import { AggregateIdType, domainEventsByAggregate } from "./event-store";
 import { TodoList } from "./domain/todo-list";
 import { fillControllerElements } from "./utils";
+import { v4 as uuid } from "uuid";
 
 export const todoIdDataAttrName = "data-estd-todo-id";
 export const eventIdDataAttrName = "data-estd-event-id";
@@ -31,7 +32,7 @@ export function invalidNameInputHandler(e: JQueryEventObject) {
     $form.addClass("has-error");
     $button.removeClass("btn-success").addClass("btn-danger");
 
-    let validationEventNamespace = ".nameTodoInputValidation:" + e.timeStamp.toString().replace(".", "");
+    let validationEventNamespace = ".nameTodoInputValidation:" + uuid();
     function clearValidation() {
         $form.removeClass("has-error");
         $button.removeClass("btn-danger").addClass("btn-success");
