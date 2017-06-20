@@ -45,10 +45,8 @@ export function invalidNameInputHandler(e: JQueryEventObject) {
         }
     });
     $form.on("focusout" + validationEventNamespace, function (e) {
-        setTimeout(function () {
-            if (!e.currentTarget.contains(document.activeElement)) {
-                clearValidation();
-            }
-        }, 0);
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+            clearValidation();
+        }
     });
 }

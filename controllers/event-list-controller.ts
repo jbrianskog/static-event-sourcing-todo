@@ -16,13 +16,20 @@ export function eventListController(di: Dependencies, events: DomainEvent[]): Do
     let eventListDelegatedEventTarget = findElement(fragment, "#eventListDelegatedEventTarget");
     let $eventListDelegatedEventTarget = $(eventListDelegatedEventTarget);
     $eventListDelegatedEventTarget.on("click", ".event-list-item", function (e) {
-        let eventNamespace = "focusout.activeEventFocusOut:" + uuid();
-        $(e.currentTarget).on(eventNamespace, function (e2) {
-            if (e2.currentTarget.contains(e2.relatedTarget)) {
+        let refreshBodyEventNamespace = ".activeEventFocusOut:" + uuid();
+        // This handler will reset the body to the interactive todolist when the user clicks
+        // anywhere in the document outside of the event list.
+        $(document).on(`click${refreshBodyEventNamespace} keypress${refreshBodyEventNamespace}`, function (e2) {
+            // Short-circuit when handler is triggered by event that created it
+            // or when isn't an 'enter' keypress
+            // or when the event-list-item contains the click target
+            if (e.originalEvent === e2.originalEvent
+                || (e2.type === "keypress" && e2.which !== 13)
+                || e.currentTarget.contains(e2.target)) {
                 return;
             }
-            $(e2.currentTarget).off(eventNamespace);
-            if (!eventListDelegatedEventTarget.contains(e2.relatedTarget)) {
+            $(document).off(refreshBodyEventNamespace);
+            if (!eventListDelegatedEventTarget.contains(e2.target)) {
                 di.refreshBody(di, todoListId);
             }
         });
@@ -30,7 +37,6 @@ export function eventListController(di: Dependencies, events: DomainEvent[]): Do
         let historyEvents = events.slice(0, parseInt(eventId));
         fillControllerElements(document, "todoListPanelController", historyDi.historyTodoListPanelController(historyDi, historyEvents));
     });
-
     fillControllerElements(fragment, "eventListGroupController", di.eventListGroupController(di, events));
     return fragment;
 }
