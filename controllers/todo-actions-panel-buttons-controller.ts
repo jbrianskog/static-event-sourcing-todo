@@ -9,9 +9,6 @@ export function todoActionsPanelButtonsController(di: Dependencies, todo: Todo |
         fragment.appendChild(templateClone("todoMoveUpBtnTemplate"));
         fragment.appendChild(templateClone("todoMoveDownBtnTemplate"));
     }
-    for (const element of fragment.querySelectorAll("button")) {
-        element.dataset.todoId = todo.id;
-    }
     fragment.appendChild(templateClone("todoRenameBtnTemplate"));
     setAttrElements(fragment, todoIdDataAttrName, todo.id);
     return fragment;

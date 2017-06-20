@@ -33,6 +33,10 @@
             <div data-estd-controller="completedTodoListController"></div>
         </div>
     </template>
+    <template id="historyTodoListPanelTemplate">
+            <div data-estd-controller="incompleteTodoListController"></div>
+            <div data-estd-controller="completedTodoListController"></div>
+    </template>
     <template id="addTodoFormTemplate">
         <form role="form" id="addTodoForm">
             <label for="addTodoInput" class="sr-only">New To-do Name</label>
@@ -68,6 +72,12 @@
         <div class="list-group-item list-group-item-success todoActionsPanel" style="display: none" data-estd-controller="todoActionsPanelController"></div>
         <div class="list-group-item list-group-item-success todoRenamePanel" style="display: none" data-estd-controller="todoRenamePanelController"></div>
     </template>
+    <template id="historyTodoTemplate">
+        <a class="list-group-item" data-estd-controller="historyTodoTitlePanelController" tabindex="0"></a>
+    </template>
+    <template id="historyCompletedTodoTemplate">
+        <a class="list-group-item list-group-item-success" data-estd-controller="historyTodoTitlePanelController" tabindex="0"></a>
+    </template>
     <template id="todoTitlePanelTemplate">
         <div class="todo-list-todo-panel">
             <div class="todo-list-todo-title" data-estd-controller="todoTitleController"></div>
@@ -76,6 +86,11 @@
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             </button>
             </div>
+        </div>
+    </template>
+    <template id="historyTodoTitlePanelTemplate">
+        <div class="todo-list-todo-panel">
+            <div class="todo-list-todo-title" data-estd-controller="todoTitleController"></div>
         </div>
     </template>
     <template id="todoActionsPanelTemplate">
@@ -127,10 +142,10 @@
     </button>
     </template>
     <template id="eventListTemplate">
-        <div class="list-group" data-estd-controller="eventListGroupController"></div>
+        <div id="eventListDelegatedEventTarget" class="list-group" data-estd-controller="eventListGroupController"></div>
     </template>
     <template id="eventListItemTemplate">
-        <a class="list-group-item event-list-item" data-estd-controller="eventTextController"></a>
+        <button class="list-group-item event-list-item" data-estd-attr="data-estd-event-id" data-estd-controller="eventTextController"></button>
     </template>
     <template id="emptyEventListTemplate">
         <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Add some to-dos to see events</p>

@@ -19,4 +19,8 @@ export interface Dependencies {
     eventListGroupController: (di: Dependencies, events: DomainEvent[]) => DocumentFragment;
     eventTextController: (di: Dependencies, event: DomainEvent) => DocumentFragment;
     refreshLists: (di: Dependencies, todoListId: AggregateIdType) => Promise<void>;
+    refreshBody: (di: Dependencies, todoListId: AggregateIdType) => Promise<void>;
+    historyTodoListPanelController: (di: Dependencies, events: DomainEvent[]) => DocumentFragment;
+    historyTodoController: (di: Dependencies, todo: Todo | CompletedTodo) => DocumentFragment;
+    historyTodoTitlePanelController: (di: Dependencies, todo: Todo | CompletedTodo) => DocumentFragment;
 }
