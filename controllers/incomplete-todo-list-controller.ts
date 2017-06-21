@@ -4,7 +4,7 @@ import { Dependencies } from "../dependencies";
 
 export function incompleteTodoListController(di: Dependencies, todos: Todo[]): DocumentFragment {
     if (!todos.length) {
-        return new DocumentFragment();
+        return document.createDocumentFragment();
     }
     let fragment = templateClone("incompleteTodoListTemplate");
     fillControllerElements(fragment, "todoListController", di.todoListController(di, todos)); 

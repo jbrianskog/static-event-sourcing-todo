@@ -5,7 +5,7 @@ import { eventIdDataAttrName } from "../app.common";
 
 export function eventListGroupController(di: Dependencies, events: DomainEvent[]): DocumentFragment {
     if (events.length) {
-        let fragment = new DocumentFragment();
+        let fragment = document.createDocumentFragment();
         events.forEach(e => {
             let listItemFragment = templateClone("eventListItemTemplate");
             setAttrElements(listItemFragment, eventIdDataAttrName, e.id.toString());
