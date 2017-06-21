@@ -1,4 +1,4 @@
-import idb, { DB } from "idb";
+import idb, { DB, Cursor } from "idb";
 
 export enum DomainEventType {
     TodoAdded,
@@ -34,29 +34,51 @@ function open(): Promise<DB> {
                 db.createObjectStore(domainEventStoreName, { autoIncrement: true, keyPath: eventIdPropName })
                     .createIndex(aggregateIdPropName, aggregateIdPropName);
         }
-    }).catch(reason => {
-        alert("Database error: " + reason);
+    }).catch(err => {
+        console.log(err);
+        alert("Database error: open: " + err);
     });
 }
 export function allDomainEvents(version?: number): Promise<DomainEvent[]> {
     return open().then(db => {
-        let store = db.transaction(domainEventStoreName).objectStore(domainEventStoreName);
-        return (version)
-            ? store.getAll(IDBKeyRange.upperBound(version))
-            : store.getAll();
-    }).catch(reason => {
-        alert("Database error: " + reason);
+        let events = [] as DomainEvent[];
+        let tx = db.transaction(domainEventStoreName);
+        let store = tx.objectStore(domainEventStoreName);
+        function cursorCallback(cursor: Cursor) {
+            if (!cursor) return;
+            events.push(cursor.value);
+            cursor.continue();
+        }
+        if (version) {
+            store.iterateCursor(IDBKeyRange.upperBound(version), cursorCallback);
+        } else {
+            store.iterateCursor(cursorCallback);
+        }
+        return tx.complete.then(() => events);
+    }).catch(err => {
+        console.log(err);
+        alert("Database error: allDomainEvents: " + err);
     });
 }
+
 export function domainEventsByAggregate(aggregateId: AggregateIdType, version?: number): Promise<DomainEvent[]> {
     return open().then(db => {
-        let index = db.transaction(domainEventStoreName).objectStore(domainEventStoreName).index(aggregateIdPropName);
-        let eventsPromise = index.getAll(aggregateId) as Promise<DomainEvent[]>;
-        return (version)
-            ? eventsPromise.then(events => events.filter(e => e.id <= version))
-            : eventsPromise;
-    }).catch(reason => {
-        alert("Database error: " + reason);
+        let events = [] as DomainEvent[];
+        let tx = db.transaction(domainEventStoreName);
+        let index = tx.objectStore(domainEventStoreName).index(aggregateIdPropName);
+        function cursorCallback(cursor: Cursor) {
+            if (!cursor) return;
+            let event = cursor.value as DomainEvent;
+            if (!version || event.id <= version) {
+                events.push(event);
+            }
+            cursor.continue();
+        }
+        index.iterateCursor(cursorCallback);
+        return tx.complete.then(() => events);
+    }).catch(err => {
+        console.log(err);
+        alert("Database error: allDomainEvents: " + err);
     });
 }
 export function postDomainEvents(events: UncommittedDomainEvent[]): Promise<void> {
@@ -65,7 +87,8 @@ export function postDomainEvents(events: UncommittedDomainEvent[]): Promise<void
         let store = tx.objectStore(domainEventStoreName);
         events.forEach(x => store.add(x));
         return tx.complete;
-    }).catch(reason => {
-        alert("Database error: " + reason);
+    }).catch(err => {
+        console.log(err);
+        alert("Database error: postDomainEvents: " + err);
     });
 }
