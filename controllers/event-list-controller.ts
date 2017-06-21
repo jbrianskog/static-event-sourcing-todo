@@ -30,7 +30,8 @@ export function eventListController(di: Dependencies, events: DomainEvent[]): Do
             }
             $(document).off(refreshBodyEventNamespace);
             if (!eventListDelegatedEventTarget.contains(e2.target)) {
-                di.refreshBody(di, todoListId);
+                di.refreshBody(di, todoListId)
+                .catch(console.log);
             }
         });
         let eventId = getRequiredAttribute(e.currentTarget, eventIdDataAttrName);

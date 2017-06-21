@@ -54,4 +54,4 @@ const di: Dependencies = {
 todoListEvents()
     .then(events => {
         fillControllerElements(document, "bodyController", di.bodyController(di, events));
-    });
+    }).catch(console.log);

@@ -29,7 +29,8 @@ export function addTodoFormController(di: Dependencies, todoListId: AggregateIdT
             // This assignment is only necessary when the first Todo is added to a new TodoList.
             todoListId = todoList.id;
             return postDomainEvents(todoList.uncommittedEvents);
-        }).then(() => di.refreshLists(di, todoListId));
+        }).then(() => di.refreshLists(di, todoListId))
+        .catch(console.log);
     });
     return fragment;
 }

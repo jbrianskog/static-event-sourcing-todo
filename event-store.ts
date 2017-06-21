@@ -34,9 +34,6 @@ function open(): Promise<DB> {
                 db.createObjectStore(domainEventStoreName, { autoIncrement: true, keyPath: eventIdPropName })
                     .createIndex(aggregateIdPropName, aggregateIdPropName);
         }
-    }).catch(err => {
-        console.log(err);
-        alert("Database error: open: " + err);
     });
 }
 export function allDomainEvents(version?: number): Promise<DomainEvent[]> {
@@ -55,9 +52,6 @@ export function allDomainEvents(version?: number): Promise<DomainEvent[]> {
             store.iterateCursor(cursorCallback);
         }
         return tx.complete.then(() => events);
-    }).catch(err => {
-        console.log(err);
-        alert("Database error: allDomainEvents: " + err);
     });
 }
 
@@ -76,9 +70,6 @@ export function domainEventsByAggregate(aggregateId: AggregateIdType, version?: 
         }
         index.iterateCursor(cursorCallback);
         return tx.complete.then(() => events);
-    }).catch(err => {
-        console.log(err);
-        alert("Database error: allDomainEvents: " + err);
     });
 }
 export function postDomainEvents(events: UncommittedDomainEvent[]): Promise<void> {
@@ -87,8 +78,5 @@ export function postDomainEvents(events: UncommittedDomainEvent[]): Promise<void
         let store = tx.objectStore(domainEventStoreName);
         events.forEach(x => store.add(x));
         return tx.complete;
-    }).catch(err => {
-        console.log(err);
-        alert("Database error: postDomainEvents: " + err);
     });
 }
