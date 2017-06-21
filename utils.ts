@@ -9,10 +9,12 @@ export function templateClone(id: string): DocumentFragment {
 }
 
 export function fillControllerElements(parentNode: NodeSelector, controllerName: string, newChild: DocumentFragment): void {
-    findControllerElements(parentNode, controllerName).forEach(elem => {
-        elem.innerHTML = "";
-        elem.appendChild(newChild)}
-    );
+    let elems = findControllerElements(parentNode, controllerName);
+    //NodeList isn't iterable on Edge, so you can't use array.forEach()
+    Array.prototype.forEach.call(elems, function (e: HTMLElement) {
+        e.innerHTML = "";
+        e.appendChild(newChild);
+    });
 }
 
 function findControllerElements(parentNode: NodeSelector, controllerName: string): NodeListOf<HTMLElement> {
@@ -21,7 +23,11 @@ function findControllerElements(parentNode: NodeSelector, controllerName: string
 }
 
 export function fillContentElements(parentNode: NodeSelector, propName: string, content: string): void {
-    findContentElements(parentNode, propName).forEach(elem => elem.textContent = content);
+    let elems = findContentElements(parentNode, propName);
+    //NodeList isn't iterable on Edge, so you can't use array.forEach()
+    Array.prototype.forEach.call(elems, function (e: Element) {
+        e.textContent = content;
+    });
 }
 
 function findContentElements(parentNode: NodeSelector, propName: string): NodeListOf<Element> {
@@ -30,7 +36,11 @@ function findContentElements(parentNode: NodeSelector, propName: string): NodeLi
 }
 
 export function setAttrElements(parentNode: NodeSelector, attrName: string, value: string): void {
-    findAttrElements(parentNode, attrName).forEach(elem => elem.setAttribute(attrName, value));
+    let elems = findAttrElements(parentNode, attrName);
+    //NodeList isn't iterable on Edge, so you can't use array.forEach()
+    Array.prototype.forEach.call(elems, function (e: Element) {
+        e.setAttribute(attrName, value);
+    });
 }
 
 function findAttrElements(parentNode: NodeSelector, attrName: string): NodeListOf<Element> {
