@@ -15,11 +15,11 @@ export function eventListController(di: Dependencies, events: DomainEvent[]): Do
     historyDi.todoController = historyTodoController;
     let eventListDelegatedEventTarget = findElement(fragment, "#eventListDelegatedEventTarget");
     let $eventListDelegatedEventTarget = $(eventListDelegatedEventTarget);
-    $eventListDelegatedEventTarget.on("click", ".event-list-item", function (e) {
+    $eventListDelegatedEventTarget.on("click", ".event-list-item", e => {
         let refreshBodyEventNamespace = ".activeEventFocusOut:" + uuid();
         // This handler will reset the body to the interactive todolist when the user clicks
         // anywhere in the document outside of the event list.
-        $(document).on(`click${refreshBodyEventNamespace} keypress${refreshBodyEventNamespace}`, function (e2) {
+        $(document).on(`click${refreshBodyEventNamespace} keypress${refreshBodyEventNamespace}`, e2 => {
             // Short-circuit when handler is triggered by event that created it
             // or when isn't an 'enter' keypress
             // or when the event-list-item contains the click target
@@ -35,7 +35,7 @@ export function eventListController(di: Dependencies, events: DomainEvent[]): Do
             }
         });
         let eventId = getRequiredAttribute(e.currentTarget, eventIdDataAttrName);
-        let historyEvents = events.slice(0, parseInt(eventId));
+        let historyEvents = events.slice(0, parseInt(eventId, 10));
         fillControllerElements(document, "todoListPanelController", historyDi.historyTodoListPanelController(historyDi, historyEvents));
     });
     fillControllerElements(fragment, "eventListGroupController", di.eventListGroupController(di, events));

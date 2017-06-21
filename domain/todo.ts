@@ -4,7 +4,7 @@ export class Todo {
     readonly isCompleted: boolean = false;
     constructor(
         readonly id: TodoIdType,
-        public name: string
+        public name: string,
     ) { }
 }
 
@@ -13,7 +13,7 @@ export class CompletedTodo extends Todo {
     constructor(
         id: TodoIdType,
         name: string,
-        readonly completionTimestamp: number
+        readonly completionTimestamp: number,
     ) {
         super(id, name);
     }

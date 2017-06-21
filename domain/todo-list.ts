@@ -11,7 +11,7 @@ export class TodoList extends AggregateRoot {
     get completedTodos(): CompletedTodo[] {
         return (this._todos.filter(x => x.isCompleted) as CompletedTodo[])
             .sort((x, y) => {
-                return y.completionTimestamp - x.completionTimestamp
+                return y.completionTimestamp - x.completionTimestamp;
             });
     }
     protected init(): void {
@@ -24,12 +24,12 @@ export class TodoList extends AggregateRoot {
         if (!this.id) {
             this._id = e.aggregateId;
         }
-        this._todos.push(new Todo(e.todoId, e.todoName))
+        this._todos.push(new Todo(e.todoId, e.todoName));
     }
     protected TodoRemoved(e: TodoRemoved): void {
         let i = this._todos.findIndex(x => x.id === e.todoId);
         if (i !== -1) {
-            this._todos.splice(i, 1)
+            this._todos.splice(i, 1);
         }
     }
     protected TodoCompleted(e: TodoCompleted): void {

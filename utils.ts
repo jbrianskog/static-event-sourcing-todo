@@ -10,8 +10,8 @@ export function templateClone(id: string): DocumentFragment {
 
 export function fillControllerElements(parentNode: NodeSelector, controllerName: string, newChild: DocumentFragment): void {
     let elems = findControllerElements(parentNode, controllerName);
-    //NodeList isn't iterable on Edge, so you can't use array.forEach()
-    Array.prototype.forEach.call(elems, function (e: HTMLElement) {
+    // NodeList isn't iterable on Edge, so you can't use array.forEach()
+    Array.prototype.forEach.call(elems, (e: HTMLElement) => {
         e.innerHTML = "";
         e.appendChild(newChild);
     });
@@ -24,8 +24,8 @@ function findControllerElements(parentNode: NodeSelector, controllerName: string
 
 export function fillContentElements(parentNode: NodeSelector, propName: string, content: string): void {
     let elems = findContentElements(parentNode, propName);
-    //NodeList isn't iterable on Edge, so you can't use array.forEach()
-    Array.prototype.forEach.call(elems, function (e: Element) {
+    // NodeList isn't iterable on Edge, so you can't use array.forEach()
+    Array.prototype.forEach.call(elems, (e: Element) => {
         e.textContent = content;
     });
 }
@@ -37,8 +37,8 @@ function findContentElements(parentNode: NodeSelector, propName: string): NodeLi
 
 export function setAttrElements(parentNode: NodeSelector, attrName: string, value: string): void {
     let elems = findAttrElements(parentNode, attrName);
-    //NodeList isn't iterable on Edge, so you can't use array.forEach()
-    Array.prototype.forEach.call(elems, function (e: Element) {
+    // NodeList isn't iterable on Edge, so you can't use array.forEach()
+    Array.prototype.forEach.call(elems, (e: Element) => {
         e.setAttribute(attrName, value);
     });
 }

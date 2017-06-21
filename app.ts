@@ -28,28 +28,28 @@ if (!window.indexedDB) {
 }
 
 const di: Dependencies = {
-    bodyController: bodyController,
-    todoListPanelController: todoListPanelController,
-    addTodoFormController: addTodoFormController,
-    incompleteTodoListController: incompleteTodoListController,
-    completedTodoListController: completedTodoListController,
-    todoListController: todoListController,
-    todoListGroupController: todoListGroupController,
-    todoController: todoController,
-    todoTitlePanelController: todoTitlePanelController,
-    todoTitleController: todoTitleController,
-    todoActionsPanelController: todoActionsPanelController,
-    todoActionsPanelButtonsController: todoActionsPanelButtonsController,
-    todoRenamePanelController: todoRenamePanelController,
-    eventListController: eventListController,
-    eventListGroupController: eventListGroupController,
-    eventTextController: eventTextController,
-    refreshLists: refreshLists,
-    refreshBody: refreshBody,
-    historyTodoListPanelController: historyTodoListPanelController,
-    historyTodoController: historyTodoController,
-    historyTodoTitlePanelController: historyTodoTitlePanelController
-}
+    bodyController,
+    todoListPanelController,
+    addTodoFormController,
+    incompleteTodoListController,
+    completedTodoListController,
+    todoListController,
+    todoListGroupController,
+    todoController,
+    todoTitlePanelController,
+    todoTitleController,
+    todoActionsPanelController,
+    todoActionsPanelButtonsController,
+    todoRenamePanelController,
+    eventListController,
+    eventListGroupController,
+    eventTextController,
+    refreshLists,
+    refreshBody,
+    historyTodoListPanelController,
+    historyTodoController,
+    historyTodoTitlePanelController,
+};
 
 todoListEvents()
     .then(events => {

@@ -7,6 +7,6 @@ export function incompleteTodoListController(di: Dependencies, todos: Todo[]): D
         return document.createDocumentFragment();
     }
     let fragment = templateClone("incompleteTodoListTemplate");
-    fillControllerElements(fragment, "todoListController", di.todoListController(di, todos)); 
+    fillControllerElements(fragment, "todoListController", di.todoListController(di, todos));
     return fragment;
 }

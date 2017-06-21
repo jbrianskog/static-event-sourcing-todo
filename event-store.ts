@@ -6,7 +6,7 @@ export enum DomainEventType {
     TodoCompleted,
     TodoUncompleted,
     TodoRenamed,
-    TodoPositionChanged
+    TodoPositionChanged,
 }
 export type AggregateIdType = string;
 export interface UncommittedDomainEvent {
@@ -42,7 +42,9 @@ export function allDomainEvents(version?: number): Promise<DomainEvent[]> {
         let tx = db.transaction(domainEventStoreName);
         let store = tx.objectStore(domainEventStoreName);
         function cursorCallback(cursor: Cursor) {
-            if (!cursor) return;
+            if (!cursor) {
+                return;
+            }
             events.push(cursor.value);
             cursor.continue();
         }
@@ -61,7 +63,9 @@ export function domainEventsByAggregate(aggregateId: AggregateIdType, version?: 
         let tx = db.transaction(domainEventStoreName);
         let index = tx.objectStore(domainEventStoreName).index(aggregateIdPropName);
         function cursorCallback(cursor: Cursor) {
-            if (!cursor) return;
+            if (!cursor) {
+                return;
+            }
             let event = cursor.value as DomainEvent;
             if (!version || event.id <= version) {
                 events.push(event);

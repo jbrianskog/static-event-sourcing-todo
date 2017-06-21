@@ -6,7 +6,7 @@ export class TodoAdded implements UncommittedDomainEvent {
     constructor(
         readonly aggregateId: AggregateIdType,
         readonly todoId: TodoIdType,
-        readonly todoName: string
+        readonly todoName: string,
     ) { }
 }
 
@@ -14,7 +14,7 @@ export class TodoRemoved implements UncommittedDomainEvent {
     readonly type = DomainEventType.TodoRemoved;
     constructor(
         readonly aggregateId: AggregateIdType,
-        readonly todoId: TodoIdType
+        readonly todoId: TodoIdType,
     ) { }
 }
 
@@ -23,7 +23,7 @@ export class TodoCompleted implements UncommittedDomainEvent {
     constructor(
         readonly aggregateId: AggregateIdType,
         readonly todoId: TodoIdType,
-        readonly todoCompletionTimestamp: number
+        readonly todoCompletionTimestamp: number,
     ) { }
 }
 
@@ -31,7 +31,7 @@ export class TodoUncompleted implements UncommittedDomainEvent {
     readonly type = DomainEventType.TodoUncompleted;
     constructor(
         readonly aggregateId: AggregateIdType,
-        readonly todoId: TodoIdType
+        readonly todoId: TodoIdType,
     ) { }
 }
 
@@ -40,7 +40,7 @@ export class TodoRenamed implements UncommittedDomainEvent {
     constructor(
         readonly aggregateId: AggregateIdType,
         readonly todoId: TodoIdType,
-        readonly todoName: string
+        readonly todoName: string,
     ) { }
 }
 
@@ -49,6 +49,6 @@ export class TodoPositionChanged implements UncommittedDomainEvent {
     constructor(
         readonly aggregateId: AggregateIdType,
         readonly todoId: TodoIdType,
-        readonly todoOffset: number
+        readonly todoOffset: number,
     ) { }
 }

@@ -10,7 +10,7 @@ export function todoListEvents(): Promise<DomainEvent[]> {
             return (lists.length)
                 ? domainEventsByAggregate(lists[0])
                 : [];
-        })
+        });
 }
 
 function todoLists(events: DomainEvent[]): AggregateIdType[] {

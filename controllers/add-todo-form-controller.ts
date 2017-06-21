@@ -11,7 +11,7 @@ export function addTodoFormController(di: Dependencies, todoListId: AggregateIdT
     let addTodoForm = findElement(fragment, "#addTodoForm") as HTMLFormElement;
     let addTodoInput = findElement(addTodoForm, "#addTodoInput") as HTMLInputElement;
     $(addTodoInput).on("invalid", invalidNameInputHandler);
-    $(addTodoForm).submit(function (e) {
+    $(addTodoForm).submit(e => {
         e.preventDefault();
         // This is to deal with the possibility that the user opens the app for the first time in two tabs
         // and adds a to-do to each new TodoList. TodoList ids are generated when the first Todo is

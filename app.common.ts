@@ -39,13 +39,13 @@ export function invalidNameInputHandler(e: JQueryEventObject) {
         $form.off(validationEventNamespace);
         $input.off(validationEventNamespace);
     }
-    $input.on("input" + validationEventNamespace, function (e) {
+    $input.on("input" + validationEventNamespace, () => {
         if (input.validity.valid) {
             clearValidation();
         }
     });
-    $form.on("focusout" + validationEventNamespace, function (e) {
-        if (!e.currentTarget.contains(e.relatedTarget)) {
+    $form.on("focusout" + validationEventNamespace, focusOutEvent => {
+        if (!focusOutEvent.currentTarget.contains(focusOutEvent.relatedTarget)) {
             clearValidation();
         }
     });

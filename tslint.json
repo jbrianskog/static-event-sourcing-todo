@@ -1,0 +1,20 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+        "ordered-imports": false,
+        "max-line-length": false,
+        "object-literal-sort-keys": false,
+        "arrow-parens": false,
+        "prefer-const": false,
+        "interface-name": false,
+        "array-type": false,
+        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
+        "member-ordering": false,
+        "member-access": false,
+        "max-classes-per-file": false,
+        "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}]
+    },
+    "jsRules": {
+        "object-literal-sort-keys": false
+    }
+}
