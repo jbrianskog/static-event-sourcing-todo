@@ -51,7 +51,10 @@ module.exports = {
         new CopyWebpackPlugin([
             { from: 'assets' }
         ]),
-        new FaviconsWebpackPlugin('./favicon.png')
+        new FaviconsWebpackPlugin({
+            logo: './favicon.png',
+            persistentCache: !ENV_PRODUCTION
+        })
     ]
 };
 
