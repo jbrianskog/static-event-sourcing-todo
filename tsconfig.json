@@ -5,7 +5,13 @@
         "module": "commonjs",
         "sourceMap": true,
         "outDir": "./build/",
-        "strict": true
+        "strict": true,
+        "plugins": [
+            {
+                "name": "tslint-language-service",
+                "alwaysShowRuleFailuresAsWarnings": true
+            }
+        ]
     },
     "exclude": [
         "./node_modules/",

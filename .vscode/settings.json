@@ -9,12 +9,5 @@
         "docs/": true,
         "build/": true,
         "assets/": true
-    },
-    "tslint.jsEnable": true,
-    "tslint.exclude": [
-        "**/node_modules/",
-        "docs/",
-        "build/",
-        "assets/"
-    ]
+    }
 }
