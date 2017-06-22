@@ -5,15 +5,16 @@ import * as Path from "path";
 import { Configuration, DefinePlugin, Output } from "webpack";
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV;
 const ENV_DEVELOPMENT = NODE_ENV === "development";
 const ENV_PRODUCTION = NODE_ENV === "production";
 
 const output: Output = (ENV_PRODUCTION) ? {
-        path: Path.resolve(__dirname, "docs"),
-        filename: "[name].[chunkhash].js",
-    } : {
+    path: Path.resolve(__dirname, "docs"),
+    filename: "[name].[chunkhash].js",
+} : {
         path: Path.resolve(__dirname, "build"),
         filename: "[name].js",
     };
@@ -33,7 +34,7 @@ const config: Configuration = {
             {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
-                use: ["babel-loader", "ts-loader"],
+                use: "ts-loader",
             },
             {
                 test: /\.css$/,
@@ -49,7 +50,7 @@ const config: Configuration = {
     devtool: (ENV_PRODUCTION) ? "source-map" : "inline-source-map",
     plugins: [
         new DefinePlugin({
-          "process.env.NODE_ENV": JSON.stringify(NODE_ENV),
+            "process.env.NODE_ENV": JSON.stringify(NODE_ENV),
         }),
         new HtmlWebpackPlugin({
             template: "index.html",
@@ -66,6 +67,9 @@ const config: Configuration = {
             persistentCache: !ENV_PRODUCTION,
         }),
         new ExtractTextPlugin((ENV_PRODUCTION) ? "[name].[contenthash].css" : "[name].css"),
+        new UglifyJSPlugin({
+            sourceMap: true
+        })
     ],
 };
 

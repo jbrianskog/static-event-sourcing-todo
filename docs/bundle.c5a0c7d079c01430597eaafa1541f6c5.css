@@ -1,0 +1,28 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.todo-list-todo-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.todo-list-todo-title {
+    flex: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.todo-list-todo-btn-group {
+    flex: none;
+}
+
+.event-list-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*# sourceMappingURL=bundle.c5a0c7d079c01430597eaafa1541f6c5.css.map*/
