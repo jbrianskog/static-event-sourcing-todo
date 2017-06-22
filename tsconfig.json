@@ -4,19 +4,21 @@
         "target": "es2015",
         "module": "commonjs",
         "sourceMap": true,
-        "outDir": "./build/",
+        "outDir": "build",
         "strict": true,
         "plugins": [
             {
                 "name": "tslint-language-service",
-                "alwaysShowRuleFailuresAsWarnings": true
+                "alwaysShowRuleFailuresAsWarnings": true,
+                "ignoreDefinitionFiles": true
             }
         ]
     },
     "exclude": [
-        "./node_modules/",
-        "./docs/",
-        "./build/",
-        "./assets/"
+        "node_modules",
+        "docs",
+        "build",
+        "assets",
+        "webpack.config.ts"
     ]
 }

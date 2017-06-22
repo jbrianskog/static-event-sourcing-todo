@@ -12,10 +12,10 @@ const ENV_PRODUCTION = NODE_ENV === "production";
 
 const output: Output = (ENV_PRODUCTION) ? {
         path: Path.resolve(__dirname, "docs"),
-        filename: "[name].js",
+        filename: "[name].[chunkhash].js",
     } : {
         path: Path.resolve(__dirname, "build"),
-        filename: "[name].[chunkhash].js",
+        filename: "[name].js",
     };
 
 const config: Configuration = {
