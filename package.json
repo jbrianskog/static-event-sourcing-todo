@@ -4,8 +4,12 @@
   "description": "Todo app. Static site with event-sourced application state with IndexedDB",
   "main": "./app.ts",
   "devDependencies": {
+    "@types/copy-webpack-plugin": "^4.0.0",
+    "@types/extract-text-webpack-plugin": "^2.1.0",
+    "@types/html-webpack-plugin": "^2.28.0",
     "@types/jquery": "^2.0.46",
     "@types/uuid": "^3.0.0",
+    "@types/webpack": "^2.2.16",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.5.1",

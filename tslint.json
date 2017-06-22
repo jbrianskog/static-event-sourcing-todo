@@ -8,11 +8,12 @@
         "prefer-const": false,
         "interface-name": false,
         "array-type": false,
-        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
+        "variable-name": [true, "ban-keywords"],
         "member-ordering": false,
         "member-access": false,
         "max-classes-per-file": false,
-        "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}]
+        "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+        "no-var-requires": false
     },
     "jsRules": {
         "object-literal-sort-keys": false

@@ -1,23 +1,28 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+import * as Path from "path";
+import * as HtmlWebpackPlugin from "html-webpack-plugin";
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const DefinePlugin = require("webpack/lib/DefinePlugin");
+import * as CopyWebpackPlugin from "copy-webpack-plugin";
+import * as ExtractTextPlugin from "extract-text-webpack-plugin";
+import { Configuration, DefinePlugin, Output } from "webpack";
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 const NODE_ENV = process.env.NODE_ENV;
 const ENV_DEVELOPMENT = NODE_ENV === "development";
 const ENV_PRODUCTION = NODE_ENV === "production";
 
-module.exports = {
+const output: Output = (ENV_PRODUCTION) ? {
+        path: Path.resolve(__dirname, "docs"),
+        filename: "[name].js",
+    } : {
+        path: Path.resolve(__dirname, "build"),
+        filename: "[name].[chunkhash].js",
+    };
+
+const config: Configuration = {
     entry: {
         bundle: "./app.ts",
     },
-    output: {
-        path: path.resolve(__dirname, "build"),
-        filename: "[name].js",
-    },
+    output,
     module: {
         rules: [
             {
@@ -36,7 +41,7 @@ module.exports = {
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
     },
-    devtool: "inline-source-map",
+    devtool: (ENV_PRODUCTION) ? "source-map" : "inline-source-map",
     plugins: [
         new DefinePlugin({
           "process.env.NODE_ENV": JSON.stringify(NODE_ENV),
@@ -55,14 +60,8 @@ module.exports = {
             logo: "./favicon.png",
             persistentCache: !ENV_PRODUCTION,
         }),
+        new ExtractTextPlugin((ENV_PRODUCTION) ? "[name].[contenthash].css" : "[name].css"),
     ],
 };
 
-if (ENV_PRODUCTION) {
-    module.exports.output.path = path.resolve(__dirname, "docs");
-    module.exports.output.filename = "[name].[chunkhash].js";
-    module.exports.plugins.push(new ExtractTextPlugin("[name].[contenthash].css"));
-    module.exports.devtool = "source-map";
-} else {
-    module.exports.plugins.push(new ExtractTextPlugin("[name].css"));
-}
+module.exports = config;
