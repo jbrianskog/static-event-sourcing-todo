@@ -26,6 +26,11 @@ const config: Configuration = {
     module: {
         rules: [
             {
+                test: /\.ts$/,
+                enforce: "pre",
+                use: "tslint-loader",
+            },
+            {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
                 use: ["babel-loader", "ts-loader"],
