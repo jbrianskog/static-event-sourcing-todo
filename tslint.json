@@ -1,5 +1,5 @@
 {
-    "extends": "tslint:recommended",
+    "extends": "tslint:all",
     "rules": {
         "max-line-length": false,
         "object-literal-sort-keys": false,
@@ -12,7 +12,25 @@
         "member-access": false,
         "max-classes-per-file": false,
         "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
-        "no-var-requires": false
+        "no-var-requires": false,
+        "prefer-object-spread": false,
+        "linebreak-style": [true, "CRLF"],
+        "completed-docs": false,
+        "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
+        "typedef": [true, "call-signature", "parameter", "property-declaration", "object-destructuring", "array-destructuring"],
+        "comment-format": false,
+        "strict-boolean-expressions": false,
+        "newline-before-return": false,
+        "no-unbound-method": false,
+        "prefer-template": false,
+        "no-magic-numbers": false,
+        "no-parameter-properties": false,
+        "align": false,
+        "no-import-side-effect": false,
+        "switch-default": false,
+        "no-any": false,
+        "no-require-imports": false,
+        "no-console": false
     },
     "jsRules": {
         "object-literal-sort-keys": false

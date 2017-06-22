@@ -10,9 +10,7 @@ export class TodoList extends AggregateRoot {
     }
     get completedTodos(): CompletedTodo[] {
         return (this._todos.filter(x => x.isCompleted) as CompletedTodo[])
-            .sort((x, y) => {
-                return y.completionTimestamp - x.completionTimestamp;
-            });
+            .sort((x, y) => y.completionTimestamp - x.completionTimestamp);
     }
     protected init(): void {
         super.init();
@@ -60,7 +58,7 @@ export class TodoList extends AggregateRoot {
                 p.push(i);
             }
             return p;
-        }, new Array<number>());
+        }, []);
         let from = incompleteTodoPositions.findIndex(x => this._todos[x].id === e.todoId);
         if (from === -1) {
             return;
@@ -83,30 +81,30 @@ export class TodoList extends AggregateRoot {
                 arraySwap(this._todos, incompleteTodoPositions[from], incompleteTodoPositions[i]);
             }
         }
-        function arraySwap(arr: Array<any>, x: number, y: number) {
+        function arraySwap(arr: any[], x: number, y: number): void {
             let a = arr[x];
             arr[x] = arr[y];
             arr[y] = a;
         }
     }
 
-    add(id: TodoIdType, name: string) {
+    add(id: TodoIdType, name: string): void {
         let agId = this.id || uuid();
         this.applyAndStage(new TodoAdded(agId, id, name));
     }
-    remove(id: TodoIdType) {
+    remove(id: TodoIdType): void {
         this.applyAndStage(new TodoRemoved(this.id, id));
     }
-    complete(id: TodoIdType, completionTimestamp: number) {
+    complete(id: TodoIdType, completionTimestamp: number): void {
         this.applyAndStage(new TodoCompleted(this.id, id, completionTimestamp));
     }
-    uncomplete(id: TodoIdType) {
+    uncomplete(id: TodoIdType): void {
         this.applyAndStage(new TodoUncompleted(this.id, id));
     }
-    rename(id: TodoIdType, name: string) {
+    rename(id: TodoIdType, name: string): void {
         this.applyAndStage(new TodoRenamed(this.id, id, name));
     }
-    changePosition(id: TodoIdType, offset: number) {
+    changePosition(id: TodoIdType, offset: number): void {
         this.applyAndStage(new TodoPositionChanged(this.id, id, offset));
     }
 }

@@ -15,7 +15,7 @@ export function todoListPanelController(di: Dependencies, events: DomainEvent[])
         domainEventsByAggregate(todoListId)
             .then(refreshEvents => {
                 let refreshTodoList = new TodoList(refreshEvents);
-                let todoName = $(e.currentTarget).find("input[name='name']").val();
+                let todoName = $(e.currentTarget).find("input[name='name']").val() as string;
                 let todoId = getRequiredAttribute(e.currentTarget, todoIdDataAttrName);
                 refreshTodoList.rename(todoId, todoName);
                 return postDomainEvents(refreshTodoList.uncommittedEvents);

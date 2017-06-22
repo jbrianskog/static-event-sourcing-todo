@@ -3,6 +3,7 @@ import { AggregateIdType, DomainEvent, DomainEventType, UncommittedDomainEvent }
 export type DomainEventHandler = (e: UncommittedDomainEvent) => void;
 
 export abstract class AggregateRoot {
+    [key: string]: any;
     private _uncommittedEvents: UncommittedDomainEvent[];
     get uncommittedEvents(): UncommittedDomainEvent[] {
         return this._uncommittedEvents;
@@ -16,12 +17,12 @@ export abstract class AggregateRoot {
     }
     constructor(events: DomainEvent[]) {
         this.init();
-        events.forEach(e => {
-            ((this as any)[DomainEventType[e.type]] as DomainEventHandler)(e);
-        });
+        for (const e of events) {
+            (this[DomainEventType[e.type]] as DomainEventHandler)(e);
+        }
     }
-    protected applyAndStage(e: UncommittedDomainEvent) {
-        ((this as any)[DomainEventType[e.type]] as DomainEventHandler)(e);
+    protected applyAndStage(e: UncommittedDomainEvent): void {
+        (this[DomainEventType[e.type]] as DomainEventHandler)(e);
         this._uncommittedEvents.push(e);
     }
 }

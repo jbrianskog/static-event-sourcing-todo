@@ -24,7 +24,7 @@ export function refreshBody(di: Dependencies, todoListId: AggregateIdType): Prom
         });
 }
 
-export function invalidNameInputHandler(e: JQueryEventObject) {
+export function invalidNameInputHandler(e: JQueryEventObject): void {
     let input = e.currentTarget as HTMLInputElement;
     let $input = $(input);
     let $form = $input.closest("form");
@@ -33,7 +33,7 @@ export function invalidNameInputHandler(e: JQueryEventObject) {
     $button.removeClass("btn-success").addClass("btn-danger");
 
     let validationEventNamespace = ".nameTodoInputValidation:" + uuid();
-    function clearValidation() {
+    function clearValidation(): void {
         $form.removeClass("has-error");
         $button.removeClass("btn-danger").addClass("btn-success");
         $form.off(validationEventNamespace);

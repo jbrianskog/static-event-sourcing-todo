@@ -41,13 +41,15 @@ export function allDomainEvents(version?: number): Promise<DomainEvent[]> {
         let events = [] as DomainEvent[];
         let tx = db.transaction(domainEventStoreName);
         let store = tx.objectStore(domainEventStoreName);
-        function cursorCallback(cursor: Cursor) {
+        function cursorCallback(cursor: Cursor): void {
             if (!cursor) {
                 return;
             }
-            events.push(cursor.value);
+            events.push(cursor.value as DomainEvent);
+            // tslint:disable-next-line:no-floating-promises
             cursor.continue();
         }
+        // iterateCursor() should be replace with usage of openCursor() when "idb" decides it is safe to do so.
         if (version) {
             store.iterateCursor(IDBKeyRange.upperBound(version), cursorCallback);
         } else {
@@ -62,7 +64,7 @@ export function domainEventsByAggregate(aggregateId: AggregateIdType, version?: 
         let events = [] as DomainEvent[];
         let tx = db.transaction(domainEventStoreName);
         let index = tx.objectStore(domainEventStoreName).index(aggregateIdPropName);
-        function cursorCallback(cursor: Cursor) {
+        function cursorCallback(cursor: Cursor): void {
             if (!cursor) {
                 return;
             }
@@ -70,8 +72,10 @@ export function domainEventsByAggregate(aggregateId: AggregateIdType, version?: 
             if (!version || event.id <= version) {
                 events.push(event);
             }
+            // tslint:disable-next-line:no-floating-promises
             cursor.continue();
         }
+        // iterateCursor() should be replace with usage of openCursor() when "idb" decides it is safe to do so.
         index.iterateCursor(cursorCallback);
         return tx.complete.then(() => events);
     });
