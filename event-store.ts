@@ -1,4 +1,4 @@
-import idb, { DB, Cursor } from "idb";
+import idb, { Cursor, DB } from "idb";
 
 export enum DomainEventType {
     TodoAdded,

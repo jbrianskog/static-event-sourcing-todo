@@ -1,6 +1,6 @@
-import { Todo, CompletedTodo } from "../domain/todo";
-import { templateClone, fillContentElements } from "../utils";
 import { Dependencies } from "../dependencies";
+import { CompletedTodo, Todo } from "../domain/todo";
+import { fillContentElements, templateClone } from "../utils";
 
 export function todoTitleController(di: Dependencies, todo: Todo | CompletedTodo): DocumentFragment {
     let titleFragment = document.createDocumentFragment();

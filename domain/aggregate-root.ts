@@ -1,4 +1,4 @@
-import { DomainEvent, UncommittedDomainEvent, AggregateIdType, DomainEventType } from "../event-store";
+import { AggregateIdType, DomainEvent, DomainEventType, UncommittedDomainEvent } from "../event-store";
 
 export type DomainEventHandler = (e: UncommittedDomainEvent) => void;
 

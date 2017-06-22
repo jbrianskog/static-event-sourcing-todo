@@ -1,7 +1,7 @@
-import { Todo, CompletedTodo } from "../domain/todo";
-import { templateClone, fillControllerElements, setAttrElements } from "../utils";
 import { todoIdDataAttrName } from "../app.common";
 import { Dependencies } from "../dependencies";
+import { CompletedTodo, Todo } from "../domain/todo";
+import { fillControllerElements, setAttrElements, templateClone } from "../utils";
 
 export function todoController(di: Dependencies, todo: Todo | CompletedTodo): DocumentFragment {
     let fragment = (todo.isCompleted)

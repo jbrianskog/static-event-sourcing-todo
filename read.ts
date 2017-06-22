@@ -1,4 +1,4 @@
-import { AggregateIdType, DomainEvent, DomainEventType, allDomainEvents, domainEventsByAggregate } from "./event-store";
+import { AggregateIdType, allDomainEvents, DomainEvent, domainEventsByAggregate, DomainEventType } from "./event-store";
 
 export function todoListEvents(): Promise<DomainEvent[]> {
     // This app's domain and event-store are designed to accommodate multiple aggregates of different types.

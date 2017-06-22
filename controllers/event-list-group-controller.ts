@@ -1,7 +1,7 @@
-import { DomainEvent } from "../event-store";
-import { templateClone, fillControllerElements, setAttrElements } from "../utils";
-import { Dependencies } from "../dependencies";
 import { eventIdDataAttrName } from "../app.common";
+import { Dependencies } from "../dependencies";
+import { DomainEvent } from "../event-store";
+import { fillControllerElements, setAttrElements, templateClone } from "../utils";
 
 export function eventListGroupController(di: Dependencies, events: DomainEvent[]): DocumentFragment {
     if (events.length) {

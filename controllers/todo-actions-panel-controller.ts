@@ -1,7 +1,7 @@
-import { Todo, CompletedTodo } from "../domain/todo";
-import { templateClone, fillControllerElements } from "../utils";
-import { todoTitleController } from "./todo-title-controller";
 import { Dependencies } from "../dependencies";
+import { CompletedTodo, Todo } from "../domain/todo";
+import { fillControllerElements, templateClone } from "../utils";
+import { todoTitleController } from "./todo-title-controller";
 
 export function todoActionsPanelController(di: Dependencies, todo: Todo | CompletedTodo): DocumentFragment {
     let fragment = templateClone("todoActionsPanelTemplate");

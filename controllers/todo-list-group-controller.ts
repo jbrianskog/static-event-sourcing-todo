@@ -1,5 +1,5 @@
-import { Todo, CompletedTodo } from "../domain/todo";
 import { Dependencies } from "../dependencies";
+import { CompletedTodo, Todo } from "../domain/todo";
 
 export function todoListGroupController(di: Dependencies, todos: (Todo | CompletedTodo)[]): DocumentFragment {
     let fragment = document.createDocumentFragment();

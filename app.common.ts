@@ -1,8 +1,8 @@
-import { Dependencies } from "./dependencies";
-import { AggregateIdType, domainEventsByAggregate } from "./event-store";
-import { TodoList } from "./domain/todo-list";
-import { fillControllerElements } from "./utils";
 import { v4 as uuid } from "uuid";
+import { Dependencies } from "./dependencies";
+import { TodoList } from "./domain/todo-list";
+import { AggregateIdType, domainEventsByAggregate } from "./event-store";
+import { fillControllerElements } from "./utils";
 
 export const todoIdDataAttrName = "data-estd-todo-id";
 export const eventIdDataAttrName = "data-estd-event-id";

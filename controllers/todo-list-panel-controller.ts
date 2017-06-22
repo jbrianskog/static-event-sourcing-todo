@@ -1,9 +1,9 @@
-import { Dependencies } from "../dependencies";
-import { DomainEvent, domainEventsByAggregate, postDomainEvents, AggregateIdType } from "../event-store";
-import { templateClone, findElement, getRequiredAttribute, fillControllerElements } from "../utils";
-import { TodoList } from "../domain/todo-list";
-import { todoIdDataAttrName } from "../app.common";
 import { v4 as uuid } from "uuid";
+import { todoIdDataAttrName } from "../app.common";
+import { Dependencies } from "../dependencies";
+import { TodoList } from "../domain/todo-list";
+import { AggregateIdType, DomainEvent, domainEventsByAggregate, postDomainEvents } from "../event-store";
+import { fillControllerElements, findElement, getRequiredAttribute, templateClone } from "../utils";
 
 export function todoListPanelController(di: Dependencies, events: DomainEvent[]): DocumentFragment {
     let fragment = templateClone("todoListPanelTemplate");

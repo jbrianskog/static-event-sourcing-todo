@@ -1,6 +1,6 @@
-import { CompletedTodo } from "../domain/todo";
-import { templateClone, fillControllerElements } from "../utils";
 import { Dependencies } from "../dependencies";
+import { CompletedTodo } from "../domain/todo";
+import { fillControllerElements, templateClone } from "../utils";
 
 export function completedTodoListController(di: Dependencies, todos: CompletedTodo[]): DocumentFragment {
     if (!todos.length) {

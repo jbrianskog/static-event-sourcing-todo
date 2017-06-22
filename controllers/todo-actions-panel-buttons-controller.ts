@@ -1,7 +1,7 @@
-import { Todo, CompletedTodo } from "../domain/todo";
-import { templateClone, setAttrElements } from "../utils";
 import { todoIdDataAttrName } from "../app.common";
 import { Dependencies } from "../dependencies";
+import { CompletedTodo, Todo } from "../domain/todo";
+import { setAttrElements, templateClone } from "../utils";
 
 export function todoActionsPanelButtonsController(di: Dependencies, todo: Todo | CompletedTodo): DocumentFragment {
     let fragment = templateClone("todoDeleteBtnTemplate");

@@ -1,5 +1,5 @@
-import { DomainEvent, DomainEventType } from "../event-store";
 import { Dependencies } from "../dependencies";
+import { DomainEvent, DomainEventType } from "../event-store";
 
 export function eventTextController(di: Dependencies, event: DomainEvent): DocumentFragment {
     let fragment = document.createDocumentFragment();

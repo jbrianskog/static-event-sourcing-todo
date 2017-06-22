@@ -1,9 +1,9 @@
-import { templateClone, fillControllerElements, findElement, getRequiredAttribute } from "../utils";
-import { DomainEvent } from "../event-store";
-import { Dependencies } from "../dependencies";
-import { eventIdDataAttrName } from "../app.common";
-import { historyTodoController } from "./history-todo-controller";
 import { v4 as uuid } from "uuid";
+import { eventIdDataAttrName } from "../app.common";
+import { Dependencies } from "../dependencies";
+import { DomainEvent } from "../event-store";
+import { fillControllerElements, findElement, getRequiredAttribute, templateClone } from "../utils";
+import { historyTodoController } from "./history-todo-controller";
 
 export function eventListController(di: Dependencies, events: DomainEvent[]): DocumentFragment {
     if (!events.length) {

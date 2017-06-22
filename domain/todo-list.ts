@@ -1,7 +1,7 @@
-import { AggregateRoot } from "./aggregate-root";
-import { Todo, CompletedTodo, TodoIdType } from "./todo";
-import { TodoAdded, TodoRemoved, TodoCompleted, TodoUncompleted, TodoRenamed, TodoPositionChanged } from "./events";
 import { v4 as uuid } from "uuid";
+import { AggregateRoot } from "./aggregate-root";
+import { TodoAdded, TodoCompleted, TodoPositionChanged, TodoRemoved, TodoRenamed, TodoUncompleted } from "./events";
+import { CompletedTodo, Todo, TodoIdType } from "./todo";
 
 export class TodoList extends AggregateRoot {
     protected _todos: (Todo | CompletedTodo)[];

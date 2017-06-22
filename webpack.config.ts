@@ -1,9 +1,9 @@
-import * as Path from "path";
-import * as HtmlWebpackPlugin from "html-webpack-plugin";
-const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 import * as CopyWebpackPlugin from "copy-webpack-plugin";
 import * as ExtractTextPlugin from "extract-text-webpack-plugin";
+import * as HtmlWebpackPlugin from "html-webpack-plugin";
+import * as Path from "path";
 import { Configuration, DefinePlugin, Output } from "webpack";
+const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 const NODE_ENV = process.env.NODE_ENV;

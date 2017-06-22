@@ -1,5 +1,5 @@
+import { AggregateIdType, DomainEventType, UncommittedDomainEvent } from "../event-store";
 import { TodoIdType } from "./todo";
-import { UncommittedDomainEvent, AggregateIdType, DomainEventType } from "../event-store";
 
 export class TodoAdded implements UncommittedDomainEvent {
     readonly type = DomainEventType.TodoAdded;

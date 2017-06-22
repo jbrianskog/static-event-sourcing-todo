@@ -1,10 +1,10 @@
-import { Dependencies } from "../dependencies";
-import { templateClone, findElement } from "../utils";
-import { invalidNameInputHandler } from "../app.common";
-import { domainEventsByAggregate, postDomainEvents, AggregateIdType } from "../event-store";
-import { todoListEvents } from "../read";
 import { v4 as uuid } from "uuid";
+import { invalidNameInputHandler } from "../app.common";
+import { Dependencies } from "../dependencies";
 import { TodoList } from "../domain/todo-list";
+import { AggregateIdType, domainEventsByAggregate, postDomainEvents } from "../event-store";
+import { todoListEvents } from "../read";
+import { findElement, templateClone } from "../utils";
 
 export function addTodoFormController(di: Dependencies, todoListId: AggregateIdType): DocumentFragment {
     let fragment = templateClone("addTodoFormTemplate");

@@ -1,7 +1,7 @@
 import { Dependencies } from "../dependencies";
-import { DomainEvent } from "../event-store";
-import { templateClone, fillControllerElements } from "../utils";
 import { TodoList } from "../domain/todo-list";
+import { DomainEvent } from "../event-store";
+import { fillControllerElements, templateClone } from "../utils";
 
 export function historyTodoListPanelController(di: Dependencies, events: DomainEvent[]): DocumentFragment {
     let fragment = templateClone("historyTodoListPanelTemplate");

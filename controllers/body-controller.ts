@@ -1,6 +1,6 @@
 import { Dependencies } from "../dependencies";
 import { DomainEvent } from "../event-store";
-import { templateClone, fillControllerElements } from "../utils";
+import { fillControllerElements, templateClone } from "../utils";
 
 export function bodyController(di: Dependencies, events: DomainEvent[]): DocumentFragment {
     let fragment = templateClone("bodyTemplate");

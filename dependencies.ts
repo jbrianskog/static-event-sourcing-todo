@@ -1,5 +1,5 @@
-import { Todo, CompletedTodo } from "./domain/todo";
-import { DomainEvent, AggregateIdType } from "./event-store";
+import { CompletedTodo, Todo } from "./domain/todo";
+import { AggregateIdType, DomainEvent } from "./event-store";
 
 export interface Dependencies {
     bodyController: (di: Dependencies, events: DomainEvent[]) => DocumentFragment;
