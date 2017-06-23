@@ -49,7 +49,7 @@ export function allDomainEvents(version?: number): Promise<DomainEvent[]> {
             // tslint:disable-next-line:no-floating-promises
             cursor.continue();
         }
-        // iterateCursor() should be replace with usage of openCursor() when "idb" decides it is safe to do so.
+        // iterateCursor() should be replaced with usage of openCursor() when "idb" decides it is safe to do so.
         if (version) {
             store.iterateCursor(IDBKeyRange.upperBound(version), cursorCallback);
         } else {
@@ -75,7 +75,7 @@ export function domainEventsByAggregate(aggregateId: AggregateIdType, version?: 
             // tslint:disable-next-line:no-floating-promises
             cursor.continue();
         }
-        // iterateCursor() should be replace with usage of openCursor() when "idb" decides it is safe to do so.
+        // iterateCursor() should be replaced with usage of openCursor() when "idb" decides it is safe to do so.
         index.iterateCursor(cursorCallback);
         return tx.complete.then(() => events);
     });
