@@ -15,9 +15,9 @@ const output: Output = (ENV_PRODUCTION) ? {
     path: Path.resolve(__dirname, "docs"),
     filename: "[name].[chunkhash].js",
 } : {
-        path: Path.resolve(__dirname, "build"),
-        filename: "[name].js",
-    };
+    path: Path.resolve(__dirname, "build"),
+    filename: "[name].js",
+};
 
 const config: Configuration = {
     entry: {
