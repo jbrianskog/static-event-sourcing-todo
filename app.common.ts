@@ -7,21 +7,17 @@ import { fillControllerElements } from "./utils";
 export const todoIdDataAttrName = "data-estd-todo-id";
 export const eventIdDataAttrName = "data-estd-event-id";
 
-export function refreshLists(di: Dependencies, todoListId: AggregateIdType): Promise<void> {
-    return domainEventsByAggregate(todoListId)
-        .then(events => {
-            let todoList = new TodoList(events);
-            fillControllerElements(document, "incompleteTodoListController", di.incompleteTodoListController(di, todoList.todos));
-            fillControllerElements(document, "completedTodoListController", di.completedTodoListController(di, todoList.completedTodos));
-            fillControllerElements(document, "eventListController", di.eventListController(di, events));
-        });
+export async function refreshLists(di: Dependencies, todoListId: AggregateIdType): Promise<void> {
+    let events = await domainEventsByAggregate(todoListId);
+    let todoList = new TodoList(events);
+    fillControllerElements(document, "incompleteTodoListController", di.incompleteTodoListController(di, todoList.todos));
+    fillControllerElements(document, "completedTodoListController", di.completedTodoListController(di, todoList.completedTodos));
+    fillControllerElements(document, "eventListController", di.eventListController(di, events));
 }
 
-export function refreshBody(di: Dependencies, todoListId: AggregateIdType): Promise<void> {
-    return domainEventsByAggregate(todoListId)
-        .then(events => {
-            fillControllerElements(document, "bodyController", di.bodyController(di, events));
-        });
+export async function refreshBody(di: Dependencies, todoListId: AggregateIdType): Promise<void> {
+    let events = await domainEventsByAggregate(todoListId);
+    fillControllerElements(document, "bodyController", di.bodyController(di, events));
 }
 
 export function invalidNameInputHandler(e: JQueryEventObject): void {

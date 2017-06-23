@@ -27,8 +27,8 @@ const domainEventStoreName = "domain-event";
 const aggregateIdPropName = "aggregateId";
 const eventIdPropName = "id";
 
-function open(): Promise<DB> {
-    return idb.open(dbName, 1, db => {
+async function open(): Promise<DB> {
+    return await idb.open(dbName, 1, db => {
         switch (db.oldVersion) {
             case 0:
                 db.createObjectStore(domainEventStoreName, { autoIncrement: true, keyPath: eventIdPropName })
@@ -36,55 +36,58 @@ function open(): Promise<DB> {
         }
     });
 }
-export function allDomainEvents(version?: number): Promise<DomainEvent[]> {
-    return open().then(db => {
-        let events = [] as DomainEvent[];
-        let tx = db.transaction(domainEventStoreName);
-        let store = tx.objectStore(domainEventStoreName);
-        function cursorCallback(cursor: Cursor): void {
-            if (!cursor) {
-                return;
-            }
-            events.push(cursor.value as DomainEvent);
-            // tslint:disable-next-line:no-floating-promises
-            cursor.continue();
+export async function allDomainEvents(version?: number): Promise<DomainEvent[]> {
+    let db = await open();
+    let events = [] as DomainEvent[];
+    let tx = db.transaction(domainEventStoreName);
+    let store = tx.objectStore(domainEventStoreName);
+    function cursorCallback(cursor: Cursor): void {
+        if (!cursor) {
+            return;
         }
-        // iterateCursor() should be replaced with usage of openCursor() when "idb" decides it is safe to do so.
-        if (version) {
-            store.iterateCursor(IDBKeyRange.upperBound(version), cursorCallback);
-        } else {
-            store.iterateCursor(cursorCallback);
-        }
-        return tx.complete.then(() => events);
-    });
+        events.push(cursor.value as DomainEvent);
+        // tslint:disable-next-line:no-floating-promises
+        cursor.continue();
+    }
+    // iterateCursor() should be replaced with usage of openCursor() when "idb" decides it is safe to do so.
+    if (version) {
+        store.iterateCursor(IDBKeyRange.upperBound(version), cursorCallback);
+    } else {
+        store.iterateCursor(cursorCallback);
+    }
+    await tx.complete;
+    return events;
 }
 
-export function domainEventsByAggregate(aggregateId: AggregateIdType, version?: number): Promise<DomainEvent[]> {
-    return open().then(db => {
-        let events = [] as DomainEvent[];
-        let tx = db.transaction(domainEventStoreName);
-        let index = tx.objectStore(domainEventStoreName).index(aggregateIdPropName);
-        function cursorCallback(cursor: Cursor): void {
-            if (!cursor) {
-                return;
-            }
-            let event = cursor.value as DomainEvent;
-            if (!version || event.id <= version) {
-                events.push(event);
-            }
-            // tslint:disable-next-line:no-floating-promises
-            cursor.continue();
+export async function domainEventsByAggregate(aggregateId: AggregateIdType, version?: number): Promise<DomainEvent[]> {
+    let db = await open();
+    let events = [] as DomainEvent[];
+    let tx = db.transaction(domainEventStoreName);
+    let index = tx.objectStore(domainEventStoreName).index(aggregateIdPropName);
+    function cursorCallback(cursor: Cursor): void {
+        if (!cursor) {
+            return;
         }
-        // iterateCursor() should be replaced with usage of openCursor() when "idb" decides it is safe to do so.
-        index.iterateCursor(cursorCallback);
-        return tx.complete.then(() => events);
-    });
+        let event = cursor.value as DomainEvent;
+        if (!version || event.id <= version) {
+            events.push(event);
+        }
+        // tslint:disable-next-line:no-floating-promises
+        cursor.continue();
+    }
+    // iterateCursor() should be replaced with usage of openCursor() when "idb" decides it is safe to do so.
+    index.iterateCursor(cursorCallback);
+    await tx.complete;
+    return events;
 }
-export function postDomainEvents(events: UncommittedDomainEvent[]): Promise<void> {
-    return open().then(db => {
-        let tx = db.transaction(domainEventStoreName, "readwrite");
-        let store = tx.objectStore(domainEventStoreName);
-        events.forEach(x => store.add(x));
-        return tx.complete;
-    });
+export async function postDomainEvents(events: UncommittedDomainEvent[]): Promise<void> {
+    let db = await open();
+    let tx = db.transaction(domainEventStoreName, "readwrite");
+    let store = tx.objectStore(domainEventStoreName);
+    let addPromises = [];
+    for (const e of events) {
+        addPromises.push(store.add(e));
+    }
+    await Promise.all(addPromises);
+    await tx.complete;
 }
