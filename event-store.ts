@@ -58,7 +58,6 @@ export async function allDomainEvents(version?: number): Promise<DomainEvent[]> 
     await tx.complete;
     return events;
 }
-
 export async function domainEventsByAggregate(aggregateId: AggregateIdType, version?: number): Promise<DomainEvent[]> {
     let db = await open();
     let events = [] as DomainEvent[];
@@ -76,7 +75,7 @@ export async function domainEventsByAggregate(aggregateId: AggregateIdType, vers
         cursor.continue();
     }
     // iterateCursor() should be replaced with usage of openCursor() when "idb" decides it is safe to do so.
-    index.iterateCursor(cursorCallback);
+    index.iterateCursor(aggregateId, cursorCallback);
     await tx.complete;
     return events;
 }

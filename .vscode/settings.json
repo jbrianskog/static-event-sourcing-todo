@@ -9,5 +9,7 @@
         "docs": true,
         "build": true,
         "assets": true
-    }
+    },
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false
 }

@@ -17,7 +17,7 @@
         "linebreak-style": [true, "CRLF"],
         "completed-docs": false,
         "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
-        "typedef": [true, "call-signature", "parameter", "property-declaration", "object-destructuring", "array-destructuring"],
+        "typedef": [true, "parameter", "property-declaration", "object-destructuring", "array-destructuring"],
         "comment-format": false,
         "strict-boolean-expressions": false,
         "newline-before-return": false,
@@ -30,7 +30,11 @@
         "switch-default": false,
         "no-any": false,
         "no-require-imports": false,
-        "no-console": false
+        "no-console": false,
+        "no-unsafe-any": false,
+        "no-null-keyword": false,
+        "trailing-comma": false,
+        "switch-final-break": false
     },
     "jsRules": {
         "object-literal-sort-keys": false

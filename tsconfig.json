@@ -3,9 +3,11 @@
     "compilerOptions": {
         "target": "es2015",
         "module": "commonjs",
+        "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "build",
         "strict": true,
+        "jsx": "react",
         "plugins": [
             {
                 "name": "tslint-language-service",
